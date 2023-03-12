@@ -1,13 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import Account from './src/Screens/Account';
+import Info_user from './src/Screens/Info_user';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start vamo your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Info_user />
+  )
 }
 
 const styles = StyleSheet.create({
