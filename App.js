@@ -7,6 +7,9 @@ import Info_user from './src/Screens/Info_user';
 import HistoryDevice from './src/Screens/HistoryDevice';
 import Account_darkTheme from './src/Screens/Account_darkTheme';
 
+import Login from './src/Screens/Login'
+import ChooseHome from './src/Screens/ChooseHome'
+import ChooseRoom from './src/Screens/ChooseRoom'
 import Home from './src/Screens/Home'
 
 
