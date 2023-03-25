@@ -2,7 +2,6 @@ import {SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert} f
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Example from './Toggle';
 
 export default function Info_user() {
     const account_img = require('../../images/Avatar.png');
@@ -12,6 +11,7 @@ export default function Info_user() {
     return (
         
     <View style = {styles.container}>
+        { /*
         <View style = {styles.nav}>
                 <View style = {styles.icon_back}>
                     <FontAwesome5
@@ -24,6 +24,7 @@ export default function Info_user() {
                 <Text style = {styles.nav_text}>Thông tin</Text>
             
         </View>
+        */}
         <View style = {styles.infoTop}>
             <View style = {styles.infoTopLeft}>
                 <Image
@@ -123,8 +124,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#EEEEEE'
     },
-    nav : {
-        marginTop: 75,
+    /*nav : {
+        marginTop: 30,
         marginLeft: 25,
         backgroundColor: 'white',
         height: 45,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
-    },
+    },*/
     icon_back : {
         flex: 1,
         width: 10,
@@ -150,7 +151,8 @@ const styles = StyleSheet.create({
        
     },
     infoTop : {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop:10,
     },
     infoTopLeft : {
        flexDirection: 'column',

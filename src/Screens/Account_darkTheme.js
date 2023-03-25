@@ -1,14 +1,9 @@
 import { View, Text, StyleSheet,Image, TouchableOpacity} from 'react-native'
 import React, {useState, createContext, useContext} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useTheme } from '@react-navigation/native';    
 
-export default function Account({navigation}) {
-    const {colors} = useTheme();
+export default function Account_darkTheme({navigation}) {
     const account_img = require('../../images/Avatar.png');
-    let lightTheme = () => {
-        styles.container.backgroundColor = 'white';
-    }
     return (
     <View style = {styles.container}>
         <View style = {styles.image}>
@@ -27,17 +22,17 @@ export default function Account({navigation}) {
                     </View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Chế độ ban đêm')}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Tài khoản')}>
                 <View style = {styles.info}>
-                    <View style = {{backgroundColor: '#FCE19C', justifyContent: 'center', alignItems:'center', borderRadius: 30, width: 50}}>
+                    <View style = {{backgroundColor: '#111111', justifyContent: 'center', alignItems:'center', borderRadius: 30, width: 50}}>
                         <FontAwesome5
-                            name='sun'
+                            name='moon'
                             size={30}
-                            color='red'
+                            color='white'
                         />
                     </View>                  
                     <View style = {styles.info_backg}>
-                        <Text style = {styles.info_text}>Chế độ ban ngày</Text>
+                        <Text style = {styles.info_text}>Chế độ ban đêm</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -95,6 +90,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+        backgroundColor: 'black'
     },
     header : {
         backgroundColor: '#D9D9D9',
@@ -104,7 +100,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20,
-        fontSize: 28
+        fontSize: 28,
+        color: 'white'
     },
     image: {
         borderTopRightRadius: 20,
