@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     },
     info_text : {
         fontSize: 18,
-        fontColor: 'black',
+        color: 'black',
         paddingLeft: 15,
     },
     info_backg : {
