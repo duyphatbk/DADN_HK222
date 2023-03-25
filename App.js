@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import Account from './src/Screens/Account';
 import Info_user from './src/Screens/Info_user';
 import HistoryDevice from './src/Screens/HistoryDevice';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Account_darkTheme from './src/Screens/Account_darkTheme';
+
+import Home from './src/Screens/Home'
+
 
 const Stack = createNativeStackNavigator();
 

@@ -47,7 +47,7 @@ export default function Account({navigation}) {
                         <FontAwesome5
                             name='bell'
                             size={30}
-                            color='252DF5'
+                            color='#252DF5'
                         />
                     </View>
                     <View style = {styles.info_backg}>
