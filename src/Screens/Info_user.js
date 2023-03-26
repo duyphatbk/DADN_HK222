@@ -12,7 +12,7 @@ export default function Info_user() {
 
     return (
         <View style={styles.container}>
-            <BackTo name="Cá nhân" />
+            <BackTo name="Tài khoản" />
             <View style={styles.infoTop}>
                 <View>
                     <Image
