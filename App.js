@@ -23,21 +23,39 @@ const MyTheme = {
   },
 };
 
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+
+const MyDrawer = () => {
+  return (
+    <Drawer.Navigator initialRouteName="Login" >
+      {/* <Drawer.Screen name="Login" component={Login}/> */}
+      <Stack.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
+      <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
+      <Drawer.Screen name="Trang chủ" component={Home} />
+      <Drawer.Screen name="Tài khoản" component={Account} />
+      <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
+      <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
+    </Drawer.Navigator>
+  )
+}
 
 export default function App() {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      <Drawer.Navigator initialRouteName="Trang chủ">
-        <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
+      <Stack.Navigator initialRouteName="x" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="x" component={MyDrawer} />
+        {/* <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
         <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
         <Drawer.Screen name="Trang chủ" component={Home} />
         <Drawer.Screen name="Tài khoản" component={Account} />
         <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
-        <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
-      </Drawer.Navigator>
+        <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} /> */}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

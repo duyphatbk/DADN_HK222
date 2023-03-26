@@ -2,9 +2,11 @@ import CheckBox from 'react-native-check-box'
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button, Image, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 function Login() {
+    const navigation = useNavigation()
     const [info, setInfo] = useState({
         email: '',
         password: ''
@@ -59,7 +61,7 @@ function Login() {
                     </View>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={() => {}}>
+                        onPress={() => navigation.navigate('Chọn nhà')}>
                         <Text style={{
                             fontWeight: 500,
                             color: '#fff',
