@@ -30,11 +30,13 @@ export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Drawer.Navigator initialRouteName="Trang chủ">
+        <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
         <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
         <Drawer.Screen name="Trang chủ" component={Home} />
         <Drawer.Screen name="Tài khoản" component={Account} />
         <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
+        <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet,Image, TouchableOpacity} from 'react-native'
 import React, {useState, createContext, useContext} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import { useTheme } from '@react-navigation/native';    
 
 export default function Account({navigation}) {
+    const {colors} = useTheme();
     const account_img = require('../../images/Avatar.png');
     let lightTheme = () => {
         styles.container.backgroundColor = 'white';
@@ -46,7 +47,7 @@ export default function Account({navigation}) {
                         <FontAwesome5
                             name='bell'
                             size={30}
-                            color='#252DF5'
+                            color='252DF5'
                         />
                     </View>
                     <View style = {styles.info_backg}>
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: '#fff',
     },
     header : {
         backgroundColor: '#D9D9D9',
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     },
     info_text : {
         fontSize: 18,
-        color: 'black',
+        fontColor: 'black',
         paddingLeft: 15,
     },
     info_backg : {

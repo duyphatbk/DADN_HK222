@@ -1,7 +1,9 @@
-import {SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert} from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert } from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import BackTo from '../components/BackTo'
 
 export default function Info_user() {
     const account_img = require('../../images/Avatar.png');
@@ -9,52 +11,37 @@ export default function Info_user() {
     const [number, onChangeNumber] = React.useState('');
 
     return (
-        
-    <View style = {styles.container}>
-        { /*
-        <View style = {styles.nav}>
-                <View style = {styles.icon_back}>
-                    <FontAwesome5
-                        name='angle-double-left'
-                                size={40}
-                                color='#363636'
-                            />                
+        <View style={styles.container}>
+            <BackTo name="Cá nhân" />
+            <View style={styles.infoTop}>
+                <View>
+                    <Image
+                        style={styles.img}
+                        source={account_img}
+                    />
+                    <Text style={{ fontWeight: 'bold', marginTop: 10 }}>DƯA HẤU XX</Text>
                 </View>
-                
-                <Text style = {styles.nav_text}>Thông tin</Text>
-            
-        </View>
-        */}
-        <View style = {styles.infoTop}>
-            <View style = {styles.infoTopLeft}>
-                <Image
-                    style = {styles.img}
-                    source={account_img}
-                />
-                <Text style = {{paddingLeft: 37, paddingTop: 10, fontWeight: 'bold'}}>DƯA HẤU XX</Text>
+                <View>
+                    <SafeAreaView>
+                        <Text>UserName:</Text>
+                        <TextInput
+                            style={styles.input_Top}
+                            onChangeText={onChangeText}
+                            value={text}
+                        />
+                        <Text>Pass Word:</Text>
+                        <TextInput
+                            style={styles.input_Top}
+                            onChangeText={onChangeNumber}
+                            value={number}
+                            placeholder="please type out your password"
+                            keyboardType="numeric"
+                        />
+                    </SafeAreaView>
+                </View>
             </View>
-            <View style = {styles.infoTopRight}>
+            <View style={styles.infoTop}>
                 <SafeAreaView>
-                    <Text>UserName:</Text>
-                    <TextInput
-                        style={styles.input_Top}
-                        onChangeText={onChangeText}
-                        value={text}
-                    />
-                    <Text>Pass Word:</Text>
-                    <TextInput
-                        style={styles.input_Top}
-                        onChangeText={onChangeNumber}
-                        value={number}
-                        placeholder="please type out your password"
-                        keyboardType="numeric"
-                    />
-                </SafeAreaView>
-                
-            </View>
-        </View>
-        <View style = {styles.Bottom}>
-            <SafeAreaView>
                     <Text>Location:</Text>
                     <TextInput
                         style={styles.input_Bottom}
@@ -69,26 +56,26 @@ export default function Info_user() {
                         placeholder=""
                         keyboardType="numeric"
                     />
-                    <View style = {styles.mid}>
+                    <View style={styles.mid}>
                         <View>
-                        <Text>Payment</Text>
-                        <TextInput
-                            style={styles.midInput}
-                            onChangeText={onChangeNumber}
-                            value={number}
-                            placeholder=""
-                            keyboardType="numeric"
-                        />
+                            <Text>Payment</Text>
+                            <TextInput
+                                style={styles.midInput}
+                                onChangeText={onChangeNumber}
+                                value={number}
+                                placeholder=""
+                                keyboardType="numeric"
+                            />
                         </View>
-                        <View style={{marginLeft: 10}}>
-                        <Text>Type Payment</Text>
-                        <TextInput
-                            style={styles.midInput}
-                            onChangeText={onChangeNumber}
-                            value={number}
-                            placeholder=""
-                            keyboardType="numeric"
-                        />
+                        <View style={{ marginLeft: 10 }}>
+                            <Text>Type Payment</Text>
+                            <TextInput
+                                style={styles.midInput}
+                                onChangeText={onChangeNumber}
+                                value={number}
+                                placeholder=""
+                                keyboardType="numeric"
+                            />
                         </View>
                     </View>
                     <Text>Payment Amount/Month</Text>
@@ -113,106 +100,75 @@ export default function Info_user() {
                             onPress={() => Alert.alert('Button pressed')}
                         />
                     </View>
-            </SafeAreaView>
+                </SafeAreaView>
+            </View>
         </View>
-    </View>
-  )
+    )
 };
 
 const styles = StyleSheet.create({
-    container : {
+    container: {
         flex: 1,
-        backgroundColor: '#EEEEEE'
+        backgroundColor: '#EEEEEE',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        padding: 20,
+        // alignItems: 'center',
     },
-    /*nav : {
-        marginTop: 30,
-        marginLeft: 25,
-        backgroundColor: 'white',
-        height: 45,
-        width: 225,
-        borderRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },*/
-    icon_back : {
-        flex: 1,
-        width: 10,
-        backgroundColor: 'yellow',
-        borderRadius: 20,
-        backgroundColor: '#E3E3E3',
-        alignItems: 'center'
-    },
-
-    nav_text : {
-        fontSize: 20,
-        flex: 3,
-        paddingLeft: 30,
-       
-    },
-    infoTop : {
+    infoTop: {
+        marginTop: 10,
         flexDirection: 'row',
-        marginTop:10,
+        alignItems: 'center',
+        justifyContent: 'space-around',
     },
-    infoTopLeft : {
-       flexDirection: 'column',
-       flex: 1
-    },
-    img : {
+    img: {
         width: 100,
         height: 100,
-        paddingLeft: 24,
-        marginLeft: 25,
-        marginTop: 30,
-    },
-    infoTopRight : {
-        flex: 2,
-        paddingTop: 15,
-        marginLeft: 30
     },
     input_Top: {
-        height: 35,   
+        height: 35,
         borderWidth: 1,
-        width: 230 ,
+        width: 230,
         padding: 10,
         fontSize: 15,
         borderRadius: 15,
-        marginTop:7,
-        marginBottom: 10
-      },
-      mid : {
+        marginTop: 7,
+        marginBottom: 10,
+        backgroundColor: '#fff'
+    },
+    mid: {
         flexDirection: 'row',
-      },
-      midInput : {
-        height: 35,   
+    },
+    midInput: {
+        height: 35,
         borderWidth: 1,
-        width: 170,
+        width: 185,
         padding: 10,
         fontSize: 15,
         borderRadius: 15,
-        marginTop:10,
-        marginBottom: 10
-      },
-      input_Bottom:{
-        height: 35,   
+        marginTop: 10,
+        marginBottom: 10,
+        backgroundColor: '#fff'
+    },
+    input_Bottom: {
+        height: 35,
         borderWidth: 1,
-        width: 350,
+        width: 380,
         padding: 10,
         fontSize: 15,
         borderRadius: 15,
-        marginTop:5,
-        marginBottom: 5
-      },
-
+        marginTop: 5,
+        marginBottom: 5,
+        backgroundColor: '#fff'
+    },
     fixToText: {
         width: 140,
         height: 42,
-        justifyContent: 'space-between',
         marginLeft: 210,
         marginTop: 10
-      },
+    },
     Bottom: {
         marginTop: 5,
         paddingLeft: 30
-      }
+    }
 })
