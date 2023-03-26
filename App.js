@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView } from 'react-native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Account from './src/Screens/Account';
 import Info_user from './src/Screens/Info_user';
@@ -12,35 +14,34 @@ import ChooseHome from './src/Screens/ChooseHome'
 import ChooseRoom from './src/Screens/ChooseRoom'
 import Home from './src/Screens/Home'
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'rgb(255, 45, 85)',
+    background: '#363636'
+  },
+};
 
-const Stack = createNativeStackNavigator();
-
-function MyStack() {
-  return (
-    //<HistoryDevice />
-    <Stack.Navigator>
-      <Stack.Screen name="Tài khoản" component={Account} />
-      <Stack.Screen name="Thông tin tài khoản" component={Info_user} />
-      <Stack.Screen name="Chế độ ban đêm" component={Account_darkTheme} />
-      <Stack.Screen name="Lịch sử thiết bị" component={HistoryDevice} />
-    </Stack.Navigator>
-    
-  );
-}
+const Drawer = createDrawerNavigator();
 
 export default function App() {
+
   return (
-    <NavigationContainer>
-      <MyStack />
+    <NavigationContainer theme={MyTheme}>
+      <Drawer.Navigator initialRouteName="Trang chủ">
+        <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
+        <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
+        <Drawer.Screen name="Trang chủ" component={Home} />
+        <Drawer.Screen name="Tài khoản" component={Account} />
+        <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+styles = StyleSheet.create({
+  base: {
+    backgroundColor: '#363636',
+  }
+})

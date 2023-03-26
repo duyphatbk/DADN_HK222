@@ -1,12 +1,15 @@
 import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { Icon } from '@rneui/themed';
 
 const BackTo = (props) => {
+    const navigation = useNavigation();
     const backTo = () => {
         console.log('clicked')
     }
     return (
-        <TouchableOpacity style={styles.btnWrap} onPress={backTo}>
+        <TouchableOpacity style={styles.btnWrap} onPress={() => navigation.navigate(props.name)}>
             <View style={styles.icon}>
                 <Icon
                     name='doubleleft'

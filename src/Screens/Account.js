@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet,Image, TouchableOpacity} from 'react-native'
 import React, {useState, createContext, useContext} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useTheme } from '@react-navigation/native';    
+
 
 export default function Account({navigation}) {
-    const {colors} = useTheme();
     const account_img = require('../../images/Avatar.png');
     let lightTheme = () => {
         styles.container.backgroundColor = 'white';
@@ -95,6 +94,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+        backgroundColor: 'white'
     },
     header : {
         backgroundColor: '#D9D9D9',

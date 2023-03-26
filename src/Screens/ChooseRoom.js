@@ -1,12 +1,14 @@
 import CheckBox from 'react-native-check-box'
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image, TextInput, TouchableOpacit, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button, Image, TextInput, TouchableOpacit, FlatList, ScrollView } from 'react-native';
+
 import WhichRoom from '../components/WhichRoom';
 import BackTo from '../components/BackTo'
 
 
 function ChooseRoom() {
+    
     const roomlist = [{
         id: 1,
         name: 'Phòng khách'
@@ -34,20 +36,27 @@ function ChooseRoom() {
     const [modal, setModel] = useState(false);
 
     return (
-        <View style={styles.container}>
-            <View style={styles.logo}>
-                <Image source={require('../assets/logo.png')} />
-            </View>
+        <ScrollView
+            contentContainerStyle={{
+                flexGrow: 1
+            }}
+            keyboardShouldPersistTaps='handled'
+        >
+            <View style={styles.container}>
+                <View style={styles.logo}>
+                    <Image source={require('../assets/logo.png')} />
+                </View>
 
-            <View style={styles.content}>
-                <Text style={styles.title}>RABBIT'S</Text>
-                <Text style={styles.title}>SMART HOME</Text>
-                <BackTo name="Chọn nhà" />
-                <View style={styles.homelist}>
-                    {roomlist.map((item, idx) => <WhichRoom name={item.name} key={idx} />)}
+                <View style={styles.content}>
+                    <Text style={styles.title}>RABBIT'S</Text>
+                    <Text style={styles.title}>SMART HOME</Text>
+                    <BackTo name="Chọn nhà" />
+                    <View style={styles.homelist}>
+                        {roomlist.map((item, idx) => <WhichRoom name={item.name} key={idx} />)}
+                    </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 

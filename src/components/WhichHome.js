@@ -1,17 +1,26 @@
 import React from 'react'
 import { useState } from 'react';
 import { StyleSheet, Text, View, Switch, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
 
 const WhichHome = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const navigation = useNavigation();
 
     const details = () => {
         console.log('clicked details')
     }
+
+    const chooseHome = () => {
+        // do sth greater
+        console.log('choose home') 
+        navigation.navigate('Chọn nhà')
+    }
+
     return (
-        <TouchableOpacity style={styles.container} onPress={details}> 
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Chọn phòng')}> 
                 <View style={styles.img}>
                     < Image source={require('../assets/home.png')} />
                 </View>

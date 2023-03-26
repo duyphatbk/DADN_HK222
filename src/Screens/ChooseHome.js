@@ -1,11 +1,15 @@
 import CheckBox from 'react-native-check-box'
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
+import { useTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { StyleSheet, Text, View, SafeAreaView, Button, Image, TextInput, TouchableOpacity } from 'react-native';
 import WhichHome from '../components/WhichHome';
 
+const Stack = createNativeStackNavigator();
 
-function ChooseHome() {
+function ChooseHome({navigation}) {
     const homelist = [
         {
             id: 1,
@@ -31,7 +35,7 @@ function ChooseHome() {
                 <Text style={styles.title}>RABBIT'S</Text>
                 <Text style={styles.title}>SMART HOME</Text>
                 <View style={styles.homelist}>
-                    {homelist.map((item, idx) => <WhichHome name={item.name} key={idx} />)}
+                    {homelist.map((item, idx) => <WhichHome name={item.name} key={idx}/>)}
                 </View>
             </View>
         </View>

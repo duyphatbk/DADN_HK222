@@ -78,7 +78,7 @@ const LightFan = (props) => {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Chọn thiết bị</Text>
                         <View style={styles.listbox}>
-                            {list.map((item, idx) => <CB id={idx + 1} />)}
+                            {list.map((item, idx) => <CB key={idx + 1} />)}
                         </View>
                         <Pressable onPress={() => setModalVisible(!modalVisible)} style={styles.btn}>
                             <Text style={styles.textStyle}>Áp dụng</Text>

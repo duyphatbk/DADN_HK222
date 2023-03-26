@@ -1,9 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
 import { StyleSheet, Text, View, Switch, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { Icon } from '@rneui/themed';
 
 const WhichRoom = (props) => {
+    const navigation = useNavigation()
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -11,7 +14,7 @@ const WhichRoom = (props) => {
         console.log('clicked details')
     }
     return (
-        <TouchableOpacity style={styles.container} onPress={details}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Trang chủ')}>
             <View style={styles.img}>
                 <Icon
                     name='doubleright'
