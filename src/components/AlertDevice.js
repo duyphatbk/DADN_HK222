@@ -2,10 +2,15 @@ import React from 'react'
 import { useState } from 'react';
 import { StyleSheet, Text, View, Switch, TouchableOpacity, Image } from 'react-native';
 import { Icon } from '@rneui/themed';
+import MQTTService from '../core/services/MQTTService'
 
 const AlertDevice = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    
+    const toggleSwitch = () => {
+        isEnabled == true ? MQTTService.setValue('tracogt/feeds/bbc-led', 0) : MQTTService.setValue('tracogt/feeds/bbc-led', 1)
+        setIsEnabled(previousState => !previousState);
+    }
 
     const details = () => {
         console.log('clicked details')

@@ -2,44 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Button, ImageBackground } from 'react-native';
 
-import Paho from 'paho-mqtt'
-import uuid from 'react-native-uuid';
-
 const TempHum = (props) => {
     // const context = useContext(MQTTContext)
-    const [temp, setTemp] = useState(32);
-    const clientId = uuid.v4().slice(0, 23);
-    const client = new Paho.Client(
-        'io.adafruit.com',
-        443,
-        clientId
-    )
-
-    const connect = () => {
-        client.connect({
-            userName: 'tracogt',
-            password: 'aio_nCtU79BNZaG27EJhzxolf0nBRp2Y',
-            onSuccess: () => {
-                console.log('connect')
-            },
-            onFailure: () => {  q
-                console.log('huhu')
-            }
-        })
-    }
-
-    useEffect(() => {
-        client.connect({
-            userName: 'tracogt',
-            password: 'aio_nCtU79BNZaG27EJhzxolf0nBRp2Y',
-            onSuccess: () => {
-                console.log('connect')
-            },
-            onFailure: () => {
-                console.log('huhu')
-            }
-        })
-    }, [])
+    const topic = props.typ === "Nhiệt độ" ? 'tracogt/feeds/mb-temp' : 'tracogt/feeds/mb-humid'
 
     return (
         <ImageBackground
@@ -50,7 +15,7 @@ const TempHum = (props) => {
                     <Text style={styles.label}>{props.type}</Text>
                 </View>
                 <View style={styles.measureWrapper}>
-                    <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humit}>{temp}</Text>
+                    <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humit}>{props.val}</Text>
                     <Text style={styles.measure}>{props.type == "Nhiệt độ" ? "°C" : "%"}</Text>
                 </View>
             </View>

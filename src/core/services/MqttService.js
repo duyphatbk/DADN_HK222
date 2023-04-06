@@ -1,17 +1,26 @@
-import { Alert } from 'react-native';
-import init from '../libraries/mqtt';
+import * as React from 'react';
+import { useEffect, useContext, useState } from 'react';
+import init from 'react_native_mqtt';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
-init();
+init({
+    size: 10000,
+    storageBackend: AsyncStorage,
+    defaultExpires: 1000 * 3600 * 24,
+    enableCache: true,
+    reconnect: true,
+    sync: {},
+});
 
-class MqttService {
+class MQTTService {
     static instance = null;
 
     static getInstance() {
-        if (!MqttService.instance) {
-            MqttService.instance = new MqttService();
+        if (!MQTTService.instance) {
+            MQTTService.instance = new MQTTService();
         }
-        return MqttService.instance;
+        return MQTTService.instance;
     }
 
     constructor() {
@@ -21,94 +30,79 @@ class MqttService {
             443,
             clientId
         );
-        this.username = 'thoiduyphat',
-            this.password = 'duyphatpro'
-        this.client.onMessageArrived = this.onMessageArrived;
-        this.callbacks = {};
-        this.onSuccessHandler = undefined;
-        this.onConnectionLostHandler = undefined;
-        this.isConnected = false;
+        this.username = 'tracogt'
+        this.password = 'aio_ULTg18stLc07dPFZBpTXlMEdV5Ss'
+        this.client.onConnectionLost = this.onConnectionLost
+        this.client.onMessageArrived = this.onMessageArrived
+        this.isConnected = false
+        this.valuelist = {}
     }
 
-    connect = (onSuccessHandler, onConnectionLostHandler, username = null, password = null) => {
-        this.onSuccessHandler = onSuccessHandler;
-        this.onConnectionLostHandler = onConnectionLostHandler;
-        this.client.onConnectionLost = () => {
-            this.isConnected = false;
-            onConnectionLostHandler();
-        };
-        this.username = username ?? this.username;
-        this.password = password ?? this.password;
+    connect = () => {
+        if (!this.isConnected) {
+            this.client.connect({
+                userName: 'tracogt',
+                password: 'aio_ULTg18stLc07dPFZBpTXlMEdV5Ss',
+                onSuccess: () => {
+                    this.isConnected = true
+                    console.log('connect susccessfully')
+                    this.subscribe('tracogt/feeds/mb-temp')
+                    this.subscribe('tracogt/feeds/mb-humid')
+                },
+                onFailure: () => console.log('failed to connect'),
+                keepAliveInterval: 600,
+                useSSL: true,
+            })
+        }
+    }
 
-        this.client.connect({
-            timeout: 10,
-            onSuccess: () => {
-                this.isConnected = true;
-                onSuccessHandler();
-            },
-            useSSL: true,
-            onFailure: this.onFailure,
-            reconnect: true,
-            keepAliveInterval: 20,
-            cleanSession: true,
-            userName: this.username,
-            password: this.password
+    disconnect = () => {
+        if (this.isConnected) {
+            this.client.disconnect();
+            this.isConnected = false;
+        }
+    }
+
+    onMessageArrived = (message) => {
+        const {topic, payloadString} = message
+        console.log('onMessageArrived: ' + payloadString);
+        // setValue(message.payloadString);
+        // this.array.push([topic, payloadString])
+        // console.log(this.array)
+        this.valuelist = {...this.valuelist, [topic] : payloadString,}
+        console.log(this.valuelist)
+    }
+
+    onConnectionLost = (responseObject) => {
+        if (responseObject.errorCode !== 0) {
+            console.log('onConnectionLost:' + responseObject.errorMessage);
+        }
+    }
+
+    subscribe = (topic) => {
+        this.client.subscribe(topic, {
+            onSuccess: () => console.log('subscribe successfully'),
+            onFailure: () => console.log('failed to subscribe'),
         });
     };
 
-    disconnect = () => {
-        if (!this.isConnected) {
-            // console.info('not connected');
-            return;
-        }
-        this.client.disconnect();
-        this.isConnected = false;
+    unsubscribe = (topic) => {
+        this.client.unsubscribe(topic)
     }
 
-    onFailure = ({ errorMessage }) => {
-        console.info(errorMessage);
-        this.isConnected = false;
-        Alert.alert(
-            'Thất bại!',
-            'Không thể kết nối đến server!',
-            [{
-                text: 'Thử lại',
-                onPress: () => this.connect(this.onSuccessHandler, this.onConnectionLostHandler)
-            }],
-            { cancelable: false }
-        );
+    publishMessage = (topic, payload) => {
+        this.client.publish(`${topic}/get`, 'tracogt');
+        console.log('publishing: ');
     };
 
-    onMessageArrived = message => {
-        const { payloadString, topic } = message;
-        this.callbacks[topic](payloadString);
-    };
-
-    publishMessage = (topic, message) => {
-        if (!this.isConnected) {
-            // console.info('not connected');
-            return;
-        }
-        this.client.publish(topic, message);
-    };
-
-    subscribe = (topic, callback) => {
-        if (!this.isConnected) {
-            // console.info('not connected');
-            return;
-        }
-        this.callbacks[topic] = callback;
-        this.client.subscribe(topic);
-    };
-
-    unsubscribe = topic => {
-        if (!this.isConnected) {
-            // console.info('not connected');
-            return;
-        }
-        delete this.callbacks[topic];
-        this.client.unsubscribe(topic);
+    setValue = (topic, value) => {
+        const message = new Paho.MQTT.Message((value).toString());
+        // setValue(32)
+        console.log('set value')
+        message.destinationName = topic;
+        this.client.send(message);
     };
 }
 
-export default MqttService.getInstance();
+export default MQTTService.getInstance();
+

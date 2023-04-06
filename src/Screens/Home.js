@@ -7,31 +7,11 @@ import AlertDevice from '../components/AlertDevice'
 import LockDoor from '../components/LockDoor'
 import Paho from 'paho-mqtt'
 import uuid from 'react-native-uuid'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import MQTTService from '../core/services/MQTTService'
 
 function Home() {
-    const [temp, setTemp] = useState(0);
-    const [humit, setHumit] = useState(0);
 
-    // const client = new Paho.Client(
-    //     'io.adafruit.com',
-    //     433,
-    //     '/mqtt',
-    //     uuid.v4().slice(0, 23)
-    // )
-
-    // useEffect(() => {
-    //     client.connect({
-    //         userName: 'tracogt',
-    //         password: 'aio_nCtU79BNZaG27EJhzxolf0nBRp2Y',
-    //         onSuccess: () => {
-    //             console.log('connected')
-    //         },
-    //         onFailure: () => {
-    //             console.log('failed to connect')
-    //         },
-    //         useSSL: true,
-    //     })
-    // }, [])
 
     return (
         <ScrollView
@@ -60,8 +40,11 @@ function Home() {
                 </View>
                 <View style={styles.content}>
                     <AlertDevice device="fire" />
-                    <AlertDevice device="thef" />
+                    {/* <AlertDevice device="thef" /> */}
                 </View>
+                {/* <TouchableOpacity onPress={() => MQTTService.publishMessage('tracogt/feeds/mb-temp')}>
+                    <Text>HI HI</Text>
+                </TouchableOpacity> */}
             </View>
         </ScrollView>
     );

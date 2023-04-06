@@ -20,7 +20,7 @@ const WhichRoom = (props) => {
                     name='doubleright'
                     type='antdesign'
                     color='#363636'
-                    size='60'
+                    size={60}
                 />
             </View>
             <View style={styles.text}>

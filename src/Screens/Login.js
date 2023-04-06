@@ -45,7 +45,7 @@ function Login() {
                             style={styles.textinput}
                             name='password'
                             textContentType="newPassword"
-                            secureTextEntry='true'
+                            secureTextEntry={true}
                             placeholder='Nhập mật khẩu...'
                             value={pass}
                             onChangeText={ntext => setPass(ntext)} />

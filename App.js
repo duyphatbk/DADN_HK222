@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView } from 'react-
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import MQTTService from './src/core/services/MQTTService'
 
 import Account from './src/Screens/Account';
 import Info_user from './src/Screens/Info_user';
@@ -43,6 +44,24 @@ const MyDrawer = () => {
 }
 
 export default function App() {
+  const [value, setValue] = useState(0);
+  const [temp, setTemp] = useState(0);
+  const [humit, setHumit] = useState(0);
+
+  useEffect(() => {
+    if (MQTTService && !MQTTService.isConnect) {
+      MQTTService.connect()
+    }
+
+    setTemp(MQTTService.valuelist['tracogt/feeds/mb-temp'])
+    console.log(temp)
+
+    return () => {
+      MQTTService.unsubscribe('tracogt/feeds/mb-temp')
+      MQTTService.unsubscribe('tracogt/feeds/mb-humid')
+      MQTTService.disconnect()
+    }
+  }, [])
 
   return (
     <NavigationContainer theme={MyTheme}>
