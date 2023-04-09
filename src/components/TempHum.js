@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Button, ImageBackground } from 'react-native';
+import {MQTTContext} from '../store/authContext'
 
 const TempHum = (props) => {
     // const context = useContext(MQTTContext)
     const topic = props.typ === "Nhiệt độ" ? 'tracogt/feeds/mb-temp' : 'tracogt/feeds/mb-humid'
+    const [state, dispatch] = useContext(MQTTContext)
 
     return (
         <ImageBackground
@@ -15,7 +16,9 @@ const TempHum = (props) => {
                     <Text style={styles.label}>{props.type}</Text>
                 </View>
                 <View style={styles.measureWrapper}>
-                    <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humit}>{props.val}</Text>
+                    <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humit}>{
+                    props.type == "Nhiệt độ" ? state.temp : state.humid
+                    }</Text>
                     <Text style={styles.measure}>{props.type == "Nhiệt độ" ? "°C" : "%"}</Text>
                 </View>
             </View>

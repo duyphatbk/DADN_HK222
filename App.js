@@ -5,15 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MQTTService from './src/core/services/MQTTService'
 
-import Account from './src/Screens/Account';
-import Info_user from './src/Screens/Info_user';
-import HistoryDevice from './src/Screens/HistoryDevice';
-import Account_darkTheme from './src/Screens/Account_darkTheme';
+import { Account, Account_darkTheme, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login } from './src/Screens/'
 
-import Login from './src/Screens/Login'
-import ChooseHome from './src/Screens/ChooseHome'
-import ChooseRoom from './src/Screens/ChooseRoom'
-import Home from './src/Screens/Home'
+import MQTTProvider from './src/store/MQTTProvider'
 
 const MyTheme = {
   ...DefaultTheme,
@@ -30,7 +24,7 @@ const Drawer = createDrawerNavigator();
 
 const MyDrawer = () => {
   return (
-    <Drawer.Navigator initialRouteName="Login" >
+    <Drawer.Navigator initialRouteName="Trang chủ" >
       {/* <Drawer.Screen name="Login" component={Login}/> */}
       <Stack.Screen name="Login" component={Login} />
       <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
@@ -44,37 +38,20 @@ const MyDrawer = () => {
 }
 
 export default function App() {
-  const [value, setValue] = useState(0);
-  const [temp, setTemp] = useState(0);
-  const [humit, setHumit] = useState(0);
-
-  useEffect(() => {
-    if (MQTTService && !MQTTService.isConnect) {
-      MQTTService.connect()
-    }
-
-    setTemp(MQTTService.valuelist['tracogt/feeds/mb-temp'])
-    console.log(temp)
-
-    return () => {
-      MQTTService.unsubscribe('tracogt/feeds/mb-temp')
-      MQTTService.unsubscribe('tracogt/feeds/mb-humid')
-      MQTTService.disconnect()
-    }
-  }, [])
-
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="x" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="x" component={MyDrawer} />
-        {/* <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
+      <MQTTProvider>
+        <Stack.Navigator initialRouteName="Trang chủ" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Trang chủ" component={Home} />
+          <Stack.Screen name="x" component={MyDrawer} />
+          {/* <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
         <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
         <Drawer.Screen name="Trang chủ" component={Home} />
         <Drawer.Screen name="Tài khoản" component={Account} />
         <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
         <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} /> */}
-      </Stack.Navigator>
+        </Stack.Navigator>
+      </MQTTProvider>
     </NavigationContainer>
   );
 }

@@ -33,7 +33,6 @@ export default function Account({navigation}) {
                         <FontAwesome5
                             name='sun'
                             size={30}
-                            color='red'
                         />
                     </View>                  
                     <View style = {styles.info_backg}>
@@ -47,7 +46,7 @@ export default function Account({navigation}) {
                         <FontAwesome5
                             name='bell'
                             size={30}
-                            color='252DF5'
+                            color='#252DF5'
                         />
                     </View>
                     <View style = {styles.info_backg}>
@@ -70,7 +69,7 @@ export default function Account({navigation}) {
                     </View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
                 <View style = {styles.info}>
                     <View style = {{backgroundColor: '#F57C7C', justifyContent: 'center', alignItems:'center', borderRadius: 30, width: 50}}>
                         <FontAwesome5
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#EEEEEE',
     },
     header : {
         backgroundColor: '#D9D9D9',
@@ -147,7 +146,7 @@ const styles = StyleSheet.create({
     },
     info_text : {
         fontSize: 18,
-        fontColor: 'black',
+        color: 'black',
         paddingLeft: 15,
     },
     info_backg : {

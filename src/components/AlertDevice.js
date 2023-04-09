@@ -6,7 +6,7 @@ import MQTTService from '../core/services/MQTTService'
 
 const AlertDevice = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
-    
+
     const toggleSwitch = () => {
         isEnabled == true ? MQTTService.setValue('tracogt/feeds/bbc-led', 0) : MQTTService.setValue('tracogt/feeds/bbc-led', 1)
         setIsEnabled(previousState => !previousState);

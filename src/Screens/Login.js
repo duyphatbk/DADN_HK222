@@ -1,21 +1,69 @@
 import CheckBox from 'react-native-check-box'
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, Keyboard} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import { ScrollView } from 'react-native-gesture-handler';
+import  Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
+import Loader from '../components/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Login() {
     const navigation = useNavigation()
-    const [info, setInfo] = useState({
-        email: '',
-        password: ''
-    })
-    const [mail, setMail] = useState('')
-    const [pass, setPass] = useState('')
     const [selected, setSelected] = useState(false)
-
+    const [hidepassWord, setHidepassWord] = useState(true)
+    const [hideEmail, setHideEmail] = useState(true)
+    const [errors, setErrors] = React.useState({})
+    const [loading, setLoading] = React.useState(false);
+    const [inputs, setInputs] = React.useState({
+        email: '',
+        password: '',
+      });
+      const validate = () => {
+        Keyboard.dismiss();
+        let isValid = true;
+    
+        if (!inputs.email) {
+          handleError('Please input email', 'email');
+          isValid = false;
+        } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
+          handleError('Please input a valid email', 'email');
+          isValid = false;
+        }
+        if (!inputs.password) {
+          handleError('Please input password', 'password');
+          isValid = false;
+        } else if (inputs.password.length < 5) {
+          handleError('Min password length of 5', 'password');
+          isValid = false;
+        }
+        
+        if (isValid) {
+            register();
+            setErrors({errors: ''})
+        }
+      };
+      const handleError = (errors, input) => {
+            setErrors(prevState => ({...prevState, [input]: errors}));
+      };
+      const handleOnchange = (text, input) => {
+            setInputs(prevState => ({...prevState, [input]: text}));
+      };
+      const register = () => {
+        setLoading(true);
+        setTimeout(() => {
+            try {
+                setLoading(false);
+                AsyncStorage.setItem('userData', JSON.stringify(inputs));
+                navigation.navigate('Trang chủ');
+            } catch (error) {
+                Alert.alert('Error', 'Something went wrong');
+            }
+        }, 1800)
+    };
     return (
+        <ScrollView>
+        {<Loader visible={loading} />}
         <View style={styles.container}>
             <View style={styles.logo}>
                 <Image source={require('../assets/logo.png')} />
@@ -30,54 +78,79 @@ function Login() {
                         <Text style={styles.texttitle}>Email</Text>
                     </View>
                     <View style={styles.binput}>
+                        <Icon name='email-outline' style ={{fontSize:20, marginLeft: 15}} />
                         <TextInput
+                            secureTextEntry = {!hideEmail}
                             style={styles.textinput}
                             placeholder='Nhập email người dùng...'
-                            value={mail}
-                            onChangeText={ntext => setMail(ntext)} />
+                            //value={mail}
+                            onChangeText={text => handleOnchange(text, 'email')}
+                        />
+                        <Icon
+                            onPress={() => setHideEmail(!hideEmail)}
+                            name={!hideEmail ? 'eye-outline' : 'eye-off-outline'}
+                            style={{fontSize: 20, marginRight: -20}}
+                        />
                     </View>
+                        {errors.email && (
+                            <Text style={{color: 'red', fontSize: 15, marginRight: 170, }}>
+                                {errors.email}
+                            </Text>
+                        )}
 
                     <View style={styles.btitle}>
                         <Text style={styles.texttitle}>Mật khẩu</Text>
                     </View>
                     <View style={styles.binput}>
+                        <Icon name='lock-outline' style ={{fontSize:20, marginLeft: 15}} />
                         <TextInput
+                            autoCorrect={false}
+                            //defaultValue={pass}
                             style={styles.textinput}
                             name='password'
                             textContentType="newPassword"
-                            secureTextEntry={true}
+                            secureTextEntry = {hidepassWord}
                             placeholder='Nhập mật khẩu...'
-                            value={pass}
-                            onChangeText={ntext => setPass(ntext)} />
+                            //value={pass}
+                            onChangeText={text => handleOnchange(text, 'password')}
+                        />
+                        <Icon
+                            onPress={() => setHidepassWord(!hidepassWord)}
+                            name={ hidepassWord ? 'eye-outline' : 'eye-off-outline'}
+                            style={{fontSize: 20, marginRight: -20}}
+                        />
                     </View>
+                        {errors.password && 
+                        (
+                            <Text style={{color: 'red', fontSize: 15, marginRight: 175,}}>
+                                {errors.password}
+                            </Text>
+                        )
+                    }
                     <View style={styles.checkbox}>
                         <CheckBox
                             onClick={() => setSelected(!selected)}
-                            isChecked={selected}
-                            checkBoxColor='#1F66CC'
-                            rightText={"Ghi nhớ mật khẩu"}
-                            rightTextStyle={styles.righttext}
+                            isChecked= {selected}
+                            checkBoxColor= '#1F66CC'
+                            rightText= {"Ghi nhớ mật khẩu"}
+                            rightTextStyle = {styles.righttext}
                         />
                     </View>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={() => navigation.navigate('Chọn nhà')}>
+                        onPress = {validate}>
                         <Text style={{
                             fontWeight: 500,
                             color: '#fff',
                             fontSize: 18
                         }}>Đăng nhập</Text>
                     </TouchableOpacity>
-
                     <Text style={{fontSize: 12}}>Quên mật khẩu/chưa có tài khoản.</Text>
                     <Text style={{fontSize: 12}}>Vui lòng liên hệ: 18001001 để được tư vấn.</Text>
                 </View>
-
-
             </View>
-
-
         </View>
+    </ScrollView>
     );
 }
 
@@ -121,24 +194,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        marginTop: 20
+        marginTop: 10,
+        flexDirection: 'row'
     },
     textinput: {
         paddingVertical: 15,
         paddingHorizontal: 10,
-        paddingLeft: 15
+        //width: '80%',
+        marginLeft: 10,
+        //backgroundColor: 'red', 
+        width: '75%',
     },
     binput: {
         width: 360,
         backgroundColor: '#FAFAFA',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-        marginBottom: 10
+        marginBottom: 10,
+        alignItems: 'center',
+        flexDirection:'row',
+
     },
     form: {
-        // flexDirection: 'column',
+        //flexDirection: 'column',
         alignItems: 'center',
-        // justifyContent: 'center',
+        //justifyContent: 'center',
         width: 370,
     },
     checkbox: {
@@ -153,10 +233,10 @@ const styles = StyleSheet.create({
     },
     btn: {
         backgroundColor: '#FF9A88',
-        paddingVertical: 23,
+        paddingVertical: 20,
         width: 350,
         alignItems: 'center',
         borderRadius: 20,
-        marginVertical: 50
+        marginVertical: 10
     }
 });
