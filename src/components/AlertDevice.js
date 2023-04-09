@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { StyleSheet, Text, View, Switch, TouchableOpacity, Image } from 'react-native';
 import { Icon } from '@rneui/themed';
-import MQTTService from '../core/services/MQTTService'
+import MQTTService from '../core/services/MqttService'
 
 const AlertDevice = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
