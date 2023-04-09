@@ -10,7 +10,7 @@ function MQTTProvider({ children }) {
   const [state, dispatch] = useReducer(Reducer, initState)
 
   const handleSuccess = async () => {
-    await MQTTService.subscribe('tracogt/feeds/mb-temp')
+    await MQTTService.subscribe('thoiduyphat/feeds/dadn-temp')
     // await MQTTService.subscribe('tracogt/feeds/mb-humid')
     // console.log(state)
   }
@@ -26,8 +26,8 @@ function MQTTProvider({ children }) {
     const fetchData = setInterval(() => {
       if (MQTTService.isConnected) {
         // temperature
-        MQTTService.publishMessage('tracogt/feeds/mb-temp')
-        const temp = MQTTService.valuelist['tracogt/feeds/mb-temp']
+        MQTTService.publishMessage('thoiduyphat/feeds/dadn-temp')
+        const temp = MQTTService.valuelist['thoiduyphat/feeds/dadn-temp']
         dispatch(actions.setTemp(temp))
         //humidity
         // MQTTService.publishMessage('tracogt/feeds/mb-humid')
@@ -39,9 +39,9 @@ function MQTTProvider({ children }) {
 
     // clean up session
     return () => {
-      // clearInterval(fetchData)
-      MQTTService.unsubscribe('tracogt/feeds/mb-temp')
-      MQTTService.unsubscribe('tracogt/feeds/mb-humid')
+      clearInterval(fetchData)
+      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-temp')
+      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-humid')
       MQTTService.disconnect()
     }
   }, [])

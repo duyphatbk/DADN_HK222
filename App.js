@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView } from 'react-
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import MQTTService from './src/core/services/MQTTService'
+//import MQTTService from './src/core/services/MQTTService'
 
 import { Account, Account_darkTheme, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login } from './src/Screens/'
 
@@ -42,7 +42,7 @@ export default function App() {
     <NavigationContainer theme={MyTheme}>
       <MQTTProvider>
         <Stack.Navigator initialRouteName="Trang chủ" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Trang chủ" component={Home} />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="x" component={MyDrawer} />
           {/* <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
         <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
