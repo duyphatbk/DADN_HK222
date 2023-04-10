@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { StyleSheet, Text, View, Switch, TouchableOpacity, Image } from 'react-native';
 import { Icon } from '@rneui/themed';
-import MQTTService from '../core/services/MqttService'
+import MQTTService from '../core/services/MQTTService'
 
 const AlertDevice = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
@@ -38,7 +38,7 @@ const AlertDevice = (props) => {
                 </View>
             </TouchableOpacity >
             <View style={styles.btnWrap}>
-                {isEnabled ? <Text style={styles.state}>BẬC</Text>
+                {isEnabled ? <Text style={styles.state}>BẬT</Text>
                     : <Text style={styles.state}>TẮT</Text>}
 
                 <Switch

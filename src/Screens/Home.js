@@ -8,7 +8,7 @@ import LockDoor from '../components/LockDoor'
 import Paho from 'paho-mqtt'
 import uuid from 'react-native-uuid'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import MQTTService from '../core/services/MqttService'
+import MQTTService from '../core/services/MQTTService'
 
 function Home() {
 

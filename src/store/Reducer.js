@@ -1,4 +1,5 @@
-import { SET_TEMP, SET_HUMID, SET_LIGHT, SET_FAN, SET_DOOR, SER_THEFT, SET_FIRE, ADD_FAN, ADD_LIGHT } from "./Constant"
+import { SET_TEMP, SET_HUMID, SET_LIGHT, SET_FAN, 
+    SET_DOOR, SER_THEFT, SET_FIRE, ADD_FAN, ADD_LIGHT } from "./Constant"
 import * as action from './Action'
 
 // MQTT initState
@@ -21,7 +22,11 @@ function Reducer(state, action) {
                 ...state,
                 temp: action.payload
             }
-            break;
+        case SET_HUMID:
+            return {
+                ...state,
+                humid: action.payload
+            }
         default:
             throw new Error('Invalid action!')
     }

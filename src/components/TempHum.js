@@ -4,9 +4,9 @@ import {MQTTContext} from '../store/authContext'
 
 const TempHum = (props) => {
     // const context = useContext(MQTTContext)
-    const topic = props.typ === "Nhiệt độ" ? 'tracogt/feeds/mb-temp' : 'tracogt/feeds/mb-humid'
+    const topic = props.type === "Nhiệt độ" ? 'thoiduyphat/feeds/dadn-temp' : 'thoiduyphat/feeds/dadn-humid'
     const [state, dispatch] = useContext(MQTTContext)
-
+    //const x = parseInt(state.temp) + 2;
     return (
         <ImageBackground
             style={styles}
@@ -16,9 +16,9 @@ const TempHum = (props) => {
                     <Text style={styles.label}>{props.type}</Text>
                 </View>
                 <View style={styles.measureWrapper}>
-                    <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humit}>{
-                    props.type == "Nhiệt độ" ? state.temp : state.humid
-                    }</Text>
+                    <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humit}>
+                        {props.type == "Nhiệt độ" ? state.temp : state.humid}
+                    </Text>
                     <Text style={styles.measure}>{props.type == "Nhiệt độ" ? "°C" : "%"}</Text>
                 </View>
             </View>

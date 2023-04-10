@@ -92,7 +92,7 @@ unsubscribe = (topic) => {
 }
 
 publishMessage = (topic) => {
-    this.client.publish(`${topic}/get`, 'tracogt');
+    this.client.publish(`${topic}/get`, 'thoiduyphat');
 };
 
 setValue = (topic, value) => {

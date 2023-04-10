@@ -11,7 +11,7 @@ function MQTTProvider({ children }) {
 
   const handleSuccess = async () => {
     await MQTTService.subscribe('thoiduyphat/feeds/dadn-temp')
-    // await MQTTService.subscribe('tracogt/feeds/mb-humid')
+    await MQTTService.subscribe('thoiduyphat/feeds/dadn-humid')
     // console.log(state)
   }
 
@@ -30,9 +30,9 @@ function MQTTProvider({ children }) {
         const temp = MQTTService.valuelist['thoiduyphat/feeds/dadn-temp']
         dispatch(actions.setTemp(temp))
         //humidity
-        // MQTTService.publishMessage('tracogt/feeds/mb-humid')
-        // const humid = MQTTService.valuelist['tracogt/feeds/mb-humid']
-        // dispatch(actions.setTemp(humid))
+        MQTTService.publishMessage('thoiduyphat/feeds/dadn-humid')
+        const humid = MQTTService.valuelist['thoiduyphat/feeds/dadn-humid']
+        dispatch(actions.setHumid(humid))
         // console.log(payload)
       }
     }, 10000)
