@@ -2,16 +2,25 @@ import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity, Image, 
 import React, { createContext, useState, useContext } from 'react';
 import CheckBox from 'react-native-check-box'
 import { Icon } from '@rneui/themed';
+import MQTTService from '../core/services/MQTTService';
+import { MQTTContext } from '../store/authContext';
 
 
 const CB = (props) => {
-    const [selected, setSelected] = useState(false);
+    const [check, setcheck] = useState(false)
     return (
         <View style={styles.checkbox}>
             <Text style={{ fontSize: 16, fontWeight: 500 }}>{props.id}</Text>
             <CheckBox
-                onClick={() => setSelected(!selected)}
-                isChecked={selected}
+                onClick={() => {
+                    
+                    if (props.check.checked == true) {props.check.checked = false; setcheck(false)}
+                    else {
+                        props.check.checked = true;
+                        setcheck(true)
+                    }
+                }}
+                isChecked={props.check.checked}
                 checkBoxColor='#1F66CC'
             />
         </View>
@@ -22,8 +31,9 @@ const LightFan = (props) => {
     const details = () => {
         console.log('clicked details')
     }
-    const [modalVisible, setModalVisible] = useState(false);
-    const list = [
+    const [modalVisible, setModalVisible] = useState(false)
+    const [state, dispatch] = useContext(MQTTContext)
+    /*const list = [
         {
             id: 1,
             checked: false,
@@ -57,9 +67,30 @@ const LightFan = (props) => {
             checked: false,
         }
     ]
-
-    const handleChange = () => {
-
+    */
+    const handleChange = (item) => {
+        for( x of item) {
+            if (x.id < 10){
+                if(x.checked) {         
+                    console.log(`Quạt số ${x.id} đang hoạt động`)
+                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-fan', '1')
+                }
+                else {
+                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-fan', '0')
+                }
+                //console.log('ok')
+            }
+            else {
+                if(x.checked) {         
+                    console.log(`Đèn số ${x.id} đang sáng`)
+                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-light', '1')
+                }
+                else {
+                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-light', '0')
+                }
+            }
+        }
+        
     }
 
     return (
@@ -79,9 +110,14 @@ const LightFan = (props) => {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Chọn thiết bị</Text>
                         <View style={styles.listbox}>
-                            {list.map((item, idx) => <CB key={idx + 1} />)}
+                            {props.device == 'light' ? state.lights.map((item, idx) => <CB key={idx + 1} check={item} />) : 
+                            state.fans.map((item, idx) => <CB key={idx + 1} check={item} />)}
                         </View>
-                        <Pressable onPress={() => setModalVisible(!modalVisible)} style={styles.btn}>
+                        <Pressable onPress={() => {
+                            (props.device == 'light') ? handleChange(state.lights) : handleChange(state.fans);
+                            setModalVisible(!modalVisible);     
+                        }
+                    } style={styles.btn}>
                             <Text style={styles.textStyle}>Áp dụng</Text>
                         </Pressable>
                     </View>

@@ -7,10 +7,76 @@ const initState = {
     temp: '30',
     humid: '30',
     light: 0,
-    lights: [0, 0, 0, 0, 0, 0, 0, 0],
+    lights: [
+        {
+            id: 1,
+            checked: false,
+        },
+        {
+            id: 2,
+            checked: false,
+        },
+        {
+            id: 3,
+            checked: false,
+        },
+        {
+            id: 4,
+            checked: false,
+        },
+        {
+            id: 5,
+            checked: false,
+        },
+        {
+            id: 6,
+            checked: false,
+        },
+        {
+            id: 7,
+            checked: false,
+        },
+        {
+            id: 8,
+            checked: false,
+        }
+    ],
     fan: 0,
-    fans: [0, 0, 0, 0, 0, 0, 0, 0],
-    door: 0,
+    fans: [
+        {
+            id: 11,
+            checked: false,
+        },
+        {
+            id: 12,
+            checked: false,
+        },
+        {
+            id: 13,
+            checked: false,
+        },
+        {
+            id: 14,
+            checked: false,
+        },
+        {
+            id: 15,
+            checked: false,
+        },
+        {
+            id: 16,
+            checked: false,
+        },
+        {
+            id: 17,
+            checked: false,
+        },
+        {
+            id: 18,
+            checked: false,
+        }
+    ],
+    door: '0',
     fire: '',
     theft: '',
 }
@@ -26,6 +92,21 @@ function Reducer(state, action) {
             return {
                 ...state,
                 humid: action.payload
+            }
+        case SET_FAN:
+            return {
+                ...state,
+                fan: action.payload
+            }
+            case SET_LIGHT:
+                return {
+                    ...state,
+                    light: action.payload
+                }
+        case SET_DOOR:
+            return {
+                ...state,
+                door: action.payload
             }
         default:
             throw new Error('Invalid action!')

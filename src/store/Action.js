@@ -9,3 +9,11 @@ export const setHumid = payload => ({
     type: SET_HUMID,
     payload,
 })
+export const setFan = payload => ({
+    type: SET_FAN,
+    payload,
+})
+export const setDoor = payload => ({
+    type: SET_DOOR,
+    payload,
+})

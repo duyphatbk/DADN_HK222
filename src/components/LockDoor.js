@@ -1,9 +1,19 @@
-import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity, Image} from 'react-native';
 import { Icon } from '@rneui/themed';
+import MQTTService from '../core/services/MQTTService';
+import { useContext, useState } from 'react';
+import { MQTTContext } from '../store/authContext';
+
 
 const LockDoor = (props) => {
+    const [state, dispatch] = useContext(MQTTContext);
+    const [bgcolor, setbgcolor] = useState('red')
     const details = () => {
-        console.log('clicked details')
+        styles.label.backgroundColor = bgcolor;
+        state.door = (state.door == 1 ? 0 : 1);
+        MQTTService.publishMessage('thoiduyphat/feeds/dadn-door',state.door);
+
+        //return console.log(state.door);
     }
     return (
         <TouchableOpacity style={[styles.btnWrap]} onPress={details}>

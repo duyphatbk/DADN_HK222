@@ -11,8 +11,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MQTTService from '../core/services/MQTTService'
 
 function Home() {
-
-
     return (
         <ScrollView
             contentContainerStyle={{
@@ -26,7 +24,7 @@ function Home() {
 
                 <View style={styles.content}>
                     <TempHum type="Nhiệt độ" val="29" />
-                    <TempHum type="Độ ẩm" val="50" />
+                    <TempHum type="Độ ẩm" val="80" />
                 </View>
                 <Text style={styles.title}>
                     Điều khiển thiết bị
