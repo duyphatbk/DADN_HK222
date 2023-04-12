@@ -11,7 +11,7 @@ const LockDoor = (props) => {
     const details = () => {
         styles.label.backgroundColor = bgcolor;
         state.door = (state.door == 1 ? 0 : 1);
-        MQTTService.publishMessage('thoiduyphat/feeds/dadn-door',state.door);
+        MQTTService.publishMessage('thoiduyphat/feeds/dadn-door', state.door);
 
         //return console.log(state.door);
     }
