@@ -1,5 +1,5 @@
 import { SET_TEMP, SET_HUMID, SET_LIGHT, SET_FAN, 
-    SET_DOOR, SER_THEFT, SET_FIRE, ADD_FAN, ADD_LIGHT } from "./Constant"
+    SET_DOOR, SER_THEFT, SET_FIRE, ADD_FAN, ADD_LIGHT, SET_THEFT } from "./Constant"
 import * as action from './Action'
 
 // MQTT initState
@@ -77,8 +77,8 @@ const initState = {
         }
     ],
     door: '0',
-    fire: '',
-    theft: '',
+    fire: '0',
+    theft: '0',
 }
 
 function Reducer(state, action) {
@@ -98,16 +98,26 @@ function Reducer(state, action) {
                 ...state,
                 fan: action.payload
             }
-            case SET_LIGHT:
-                return {
-                    ...state,
-                    light: action.payload
-                }
+        case SET_LIGHT:
+            return {
+                ...state,
+                light: action.payload
+            }
         case SET_DOOR:
             return {
                 ...state,
                 door: action.payload
             }
+            case SET_FIRE:
+                return {
+                    ...state,
+                    fire: action.payload
+                }
+                case SET_THEFT:
+                    return {
+                        ...state,
+                        theft: action.payload
+                    }
         default:
             throw new Error('Invalid action!')
     }

@@ -20,7 +20,8 @@ const LockDoor = (props) => {
             <View style={styles.img}>
                 < Image source={require('../assets/lockdoor.png')} />
             </View>
-            <Text style={styles.label}>Cửa đang khoá</Text>
+            {state.door == 1 ? <Text style={styles.label}>Cửa đã khoá</Text> : 
+                <Text style={styles.label}>Cửa đang mở</Text>}
             <View style={styles.icon}>
                 <Icon
                     name='doubleright'

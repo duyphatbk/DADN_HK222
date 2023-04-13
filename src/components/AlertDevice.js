@@ -1,19 +1,21 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useContext} from 'react';
+
 import { StyleSheet, Text, View, Switch, TouchableOpacity, Image } from 'react-native';
 import { Icon } from '@rneui/themed';
 import MQTTService from '../core/services/MQTTService'
+import { MQTTContext } from '../store/authContext';
 
 const AlertDevice = (props) => {
     const [isEnabled, setIsEnabled] = useState(false);
-
+    const [state, dispatch] = useContext(MQTTContext);
     const toggleSwitch = () => {
         isEnabled == true ? MQTTService.setValue('tracogt/feeds/bbc-led', 0) : MQTTService.setValue('tracogt/feeds/bbc-led', 1)
         setIsEnabled(previousState => !previousState);
     }
 
     const details = () => {
-        console.log('clicked details')
+        console.log('KHÔNG THỂ BẬT TẮT THIẾT BỊ')
     }
     return (
         <View style={props.device == "fire" ? [styles.container, styles.fire] : [styles.container, styles.thef]}>
@@ -38,16 +40,17 @@ const AlertDevice = (props) => {
                 </View>
             </TouchableOpacity >
             <View style={styles.btnWrap}>
-                {isEnabled ? <Text style={styles.state}>BẬT</Text>
-                    : <Text style={styles.state}>TẮT</Text>}
-
+                {props.device == 'fire' ? <Text style={styles.state}>{state.fire == 1 ?  'CHÁY' : 'AN TOÀN'} </Text>
+                    : <Text style={styles.state}>{state.theft == 1 ?  'CÓ TRỘM' : 'AN TOÀN'} </Text>         
+                }
                 <Switch
                     style={styles.switch}
                     trackColor={{ false: '#FFA899', true: '#C9EA6C' }}
                     thumbColor={isEnabled ? '#fff' : '#1A1A1A'}
                     ios_backgroundColor="#FFA899"
                     onValueChange={toggleSwitch}
-                    value={isEnabled} />
+                    value={isEnabled} 
+                />
             </View>
         </View>
     )

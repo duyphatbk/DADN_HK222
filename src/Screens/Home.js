@@ -38,7 +38,7 @@ function Home() {
                 </View>
                 <View style={styles.content}>
                     <AlertDevice device="fire" />
-                    {/* <AlertDevice device="thef" /> */}
+                    <AlertDevice device="thef" />
                 </View>
                 {/* <TouchableOpacity onPress={() => MQTTService.publishMessage('tracogt/feeds/mb-temp')}>
                     <Text>HI HI</Text>
