@@ -10,8 +10,10 @@ const LockDoor = (props) => {
     const [bgcolor, setbgcolor] = useState('red')
     const details = () => {
         styles.label.backgroundColor = bgcolor;
-        state.door = (state.door == 1 ? 0 : 1);
-        MQTTService.publishMessage('thoiduyphat/feeds/dadn-door', state.door);
+        
+        state.door = state.door == 4 ? 5 : 4;
+        console.log(state.door)
+        MQTTService.setValue('hienhien612/feeds/dadn-door', state.door);
 
         //return console.log(state.door);
     }
@@ -20,7 +22,7 @@ const LockDoor = (props) => {
             <View style={styles.img}>
                 < Image source={require('../assets/lockdoor.png')} />
             </View>
-            {state.door == 1 ? <Text style={styles.label}>Cửa đã khoá</Text> : 
+            {state.door == 5 ? <Text style={styles.label}>Cửa đã khoá</Text> : 
                 <Text style={styles.label}>Cửa đang mở</Text>}
             <View style={styles.icon}>
                 <Icon

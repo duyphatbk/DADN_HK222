@@ -12,34 +12,7 @@ const initState = {
             id: 1,
             checked: false,
         },
-        {
-            id: 2,
-            checked: false,
-        },
-        {
-            id: 3,
-            checked: false,
-        },
-        {
-            id: 4,
-            checked: false,
-        },
-        {
-            id: 5,
-            checked: false,
-        },
-        {
-            id: 6,
-            checked: false,
-        },
-        {
-            id: 7,
-            checked: false,
-        },
-        {
-            id: 8,
-            checked: false,
-        }
+        
     ],
     fan: 0,
     fans: [
@@ -47,38 +20,12 @@ const initState = {
             id: 11,
             checked: false,
         },
-        {
-            id: 12,
-            checked: false,
-        },
-        {
-            id: 13,
-            checked: false,
-        },
-        {
-            id: 14,
-            checked: false,
-        },
-        {
-            id: 15,
-            checked: false,
-        },
-        {
-            id: 16,
-            checked: false,
-        },
-        {
-            id: 17,
-            checked: false,
-        },
-        {
-            id: 18,
-            checked: false,
-        }
+        
     ],
-    door: '0',
-    fire: '0',
-    theft: '0',
+    door: 4,
+    theft: 0,
+    fire: 0,
+    
 }
 
 function Reducer(state, action) {
@@ -116,7 +63,7 @@ function Reducer(state, action) {
                 case SET_THEFT:
                     return {
                         ...state,
-                        theft: action.payload
+                        theft: action.payload,
                     }
         default:
             throw new Error('Invalid action!')

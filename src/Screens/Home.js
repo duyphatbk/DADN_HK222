@@ -21,16 +21,16 @@ function Home() {
             <View style={styles.container}>
 
                 <BackTo name="Chọn phòng" />
-
+                
                 <View style={styles.content}>
-                    <TempHum type="Nhiệt độ" val="29" />
-                    <TempHum type="Độ ẩm" val="80" />
+                     <TempHum type="Nhiệt độ" val="29" /> 
+                     <TempHum type="Độ ẩm" val="80" /> 
                 </View>
                 <Text style={styles.title}>
                     Điều khiển thiết bị
                 </Text>
                 <View style={styles.content}>
-                    <LightFan device="fan" />
+                     <LightFan device="fan" />
                     <LightFan device="light" />
                 </View>
                 <View style={styles.content}>

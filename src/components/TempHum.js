@@ -18,7 +18,7 @@ const TempHum = (props) => {
                 </View>
                 <View style={styles.measureWrapper}>
                     <Text style={props.type == "Nhiệt độ" ? styles.temp : styles.humid}>
-                        {props.type == "Nhiệt độ" ? state.temp : state.humid}
+                        {props.type == "Nhiệt độ" ? Math.round(state.temp) : Math.round(state.humid)}
                     </Text>
                     <Text style={styles.measure}>{props.type == "Nhiệt độ" ? "°C" : "%"}</Text>
                 </View>

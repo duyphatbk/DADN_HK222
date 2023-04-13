@@ -40,8 +40,8 @@ const AlertDevice = (props) => {
                 </View>
             </TouchableOpacity >
             <View style={styles.btnWrap}>
-                {props.device == 'fire' ? <Text style={styles.state}>{state.fire == 1 ?  'CHÁY' : 'AN TOÀN'} </Text>
-                    : <Text style={styles.state}>{state.theft == 1 ?  'CÓ TRỘM' : 'AN TOÀN'} </Text>         
+                {props.device == 'fire' ? <Text style={styles.state}>{state.fire >= 5 ?  'CHÁY' : 'AN TOÀN'} </Text>
+                    : <Text style={styles.state}>{state.theft == 0 ?  'AN TOÀN' : 'CÓ TRỘM'} </Text>         
                 }
                 <Switch
                     style={styles.switch}

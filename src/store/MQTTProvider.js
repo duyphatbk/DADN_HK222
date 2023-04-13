@@ -10,12 +10,13 @@ function MQTTProvider({ children }) {
   const [state, dispatch] = useReducer(Reducer, initState)
 
   const handleSuccess = async () => {
-    await MQTTService.subscribe('thoiduyphat/feeds/dadn-temp')
-    await MQTTService.subscribe('thoiduyphat/feeds/dadn-humid')
-    await MQTTService.subscribe('thoiduyphat/feeds/dadn-fan')
-    await MQTTService.subscribe('thoiduyphat/feeds/dadn-light')
-    await MQTTService.subscribe('thoiduyphat/feeds/dadn-fire')
-    await MQTTService.subscribe('thoiduyphat/feeds/dadn-theft')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-temp-1')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-humi-1')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-fan-1')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-led-1')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-gas')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-door')
+    await MQTTService.subscribe('hienhien612/feeds/dadn-human')
     // console.log(state)
   }
 
@@ -31,41 +32,43 @@ function MQTTProvider({ children }) {
         // temperature
       
         //MQTTService.publishMessage('thoiduyphat/feeds/dadn-temp')
-        const temp = MQTTService.valuelist['thoiduyphat/feeds/dadn-temp']
+        const temp = MQTTService.valuelist['hienhien612/feeds/dadn-temp-1']
         dispatch(actions.setTemp(temp))
         //humidity
         //MQTTService.publishMessage('thoiduyphat/feeds/dadn-humid')
-        const humid = MQTTService.valuelist['thoiduyphat/feeds/dadn-humid']
+        const humid = MQTTService.valuelist['hienhien612/feeds/dadn-humi-1']
         dispatch(actions.setHumid(humid))
         // console.log(payload)
         
         //MQTTService.publishMessage('thoiduyphat/feeds/dadn-fan')
-        const fan = MQTTService.valuelist['thoiduyphat/feeds/dadn-fan']
+        const fan = MQTTService.valuelist['hienhien612/feeds/dadn-fan-1']
         dispatch(actions.setFan(fan))
 
-        const light = MQTTService.valuelist['thoiduyphat/feeds/dadn-light']
+        const light = MQTTService.valuelist['hienhien612/feeds/dadn-led-1']
         dispatch(actions.setLight(light))
 
-        const door = MQTTService.valuelist['thoiduyphat/feeds/dadn-door']
+        const door = MQTTService.valuelist['hienhien612/feeds/dadn-door']
         dispatch(actions.setDoor(door))
         
-        const fire = MQTTService.valuelist['thoiduyphat/feeds/dadn-fire']
+        const fire = MQTTService.valuelist['hienhien612/feeds/dadn-gas']
         dispatch(actions.setFire(fire))
-
-        const theft = MQTTService.valuelist['thoiduyphat/feeds/dadn-theft']
-        dispatch(actions.setTheft(theft))
+        
+        const human = MQTTService.valuelist['hienhien612/feeds/dadn-human']
+        dispatch(actions.setTheft(human))
+        
       }
-    }, 1000)
+    }, 5000)
     
     // clean up session
     return () => {
       clearInterval(fetchData)
-      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-temp')
-      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-humid')
-      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-fan')
-      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-light')
-      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-door')
-      MQTTService.unsubscribe('thoiduyphat/feeds/dadn-fire')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-temp-1')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-humi-1')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-fan-1')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-led-1')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-door')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-gas')
+      MQTTService.unsubscribe('hienhien612/feeds/dadn-human')
       MQTTService.disconnect()
     }
   }, [])

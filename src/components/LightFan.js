@@ -70,23 +70,26 @@ const LightFan = (props) => {
     */
     const handleChange = (item) => {
         for( x of item) {
-            if (x.id < 10){
+            if (x.id == 1 ){
                 if(x.checked) {         
-                    console.log(`Quạt số ${x.id} đang hoạt động`)
-                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-fan', '1')
+                    console.log(`Đèn số ${x.id} đang hoạt động`)
+                    MQTTService.setValue('hienhien612/feeds/dadn-led-1', 1)
+                    
                 }
+                
                 else {
-                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-fan', '0')
+                    MQTTService.setValue('hienhien612/feeds/dadn-led-1', 0)
                 }
-                //console.log('ok')
+                                //console.log('ok')
             }
             else {
                 if(x.checked) {         
-                    console.log(`Đèn số ${x.id} đang sáng`)
-                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-light', '1')
+                    console.log(`Quạt số ${x.id-10} đang hoạt động`)
+                    MQTTService.setValue('hienhien612/feeds/dadn-fan-1', 2)
                 }
+                
                 else {
-                    MQTTService.publishMessage('thoiduyphat/feeds/dadn-light', '0')
+                    MQTTService.setValue('hienhien612/feeds/dadn-fan-1', 3)
                 }
             }
         }
