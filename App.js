@@ -24,15 +24,20 @@ const Drawer = createDrawerNavigator();
 
 const MyDrawer = () => {
   return (
-    <Drawer.Navigator initialRouteName="Trang chủ" >
+    <Drawer.Navigator initialRouteName="Login" >
       {/* <Drawer.Screen name="Login" component={Login}/> */}
-      <Stack.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Login" component={Login} 
+          options={{headerShown: false}}
+      />
       <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
       <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
       <Drawer.Screen name="Trang chủ" component={Home} />
       <Drawer.Screen name="Tài khoản" component={Account} />
       <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
       <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
+      <Drawer.Screen name="Đăng xuất" component={Login} 
+          options={{headerShown: false}}
+      />
     </Drawer.Navigator>
   )
 }
@@ -41,8 +46,8 @@ export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <MQTTProvider>
-        <Stack.Navigator initialRouteName="Trang chủ" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={Home} />
+        <Stack.Navigator initialRouteName="x" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="x" component={MyDrawer} />
           {/* <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
               <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />

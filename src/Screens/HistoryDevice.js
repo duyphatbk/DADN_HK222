@@ -32,11 +32,11 @@ export default function HistoryDevice() {
                         placeholder='Lựa chọn thiết bị'
                         dropdownStyles={{ backgroundColor: '#F3F3F3' }}
                         dropdownItemStyles={{ alignItems: 'center' }}
-                        dropdownTextStyles={{ color: '#000', fontSize: '16', fontWeight: '500' }}
+                        dropdownTextStyles={{ color: '#000000', fontSize: 16, fontWeight: 500 }}
                         // maxHeight= {1000}
-                        inputStyles={{ color: '#fff', fontWeight: '500', fontSize: '16' }}
+                        inputStyles={{ color: '#ffffff', fontWeight: '500', fontSize: 16 }}
                         boxStyles={styles.select}
-                        disabledTextStyles={{ color: '#fff' }}
+                        disabledTextStyles={{ color: '#ffffff' }}
                     />
                 </View>
             </View>
@@ -45,13 +45,13 @@ export default function HistoryDevice() {
                 <View style={styles.datepicker}>
                     <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Lịch sử hoạt động</Text>
                     <View style={styles.Calender}>
-                        <Text style={{ fontSize: 18 }}>vamos</Text>
+                        <Text style={{ fontSize: 18 }}></Text>
                     </View>
                 </View>
                 <View style={styles.HistoryInfo}>
                     <Image style={styles.iconLight} source={icon_light} />
                     <View>
-                        <Text style={{ fontSize: 16 }}>{selected} bật lúc 00:01</Text>
+                    {selected && <Text style={{ fontSize: 16 }}>{selected} đã bật lúc 00:01</Text>}
                     </View>
                 </View>
             </View>
@@ -65,7 +65,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#EEEEEE',
-        padding: 20,
+        paddingLeft: 20,
+        paddingTop: 30,
+        justifyContent: 'center',
         // alignItems: 'center'
     },
 
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: 200,
         marginLeft: 190,
-        marginTop: 20,
+        //marginTop: 20,
         borderRadius: 9,
         Color: '#1F66CC',
         zIndex: 1
@@ -111,7 +113,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         height: 400,
         borderRadius: 20,
-
+        width: 370,
+        marginTop: -20,
     },
 
     datepicker: {
