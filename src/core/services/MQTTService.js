@@ -16,7 +16,6 @@ init({
 
 class MQTTService {
     static instance = null;
-
     static getInstance() {
         if (!MQTTService.instance) {
             MQTTService.instance = new MQTTService();
@@ -40,69 +39,65 @@ class MQTTService {
     }
 
     connect = (handleSuccess) => {
-    if (!this.isConnected) {
-        this.client.connect({
-            userName: 'hienhien612',
-            password: 'aio_VUBj19nGZ3YbN69h8YsK3BpA43n9',
-            onSuccess: async () => {
-                console.log('connect susccessfully')
-                this.isConnected = true
-                handleSuccess()
-                // this.subscribe('tracogt/feeds/mb-temp')
-                // this.subscribe('tracogt/feeds/mb-humid')
-            },
-            onFailure: () => console.log('failed to connect'),
-            keepAliveInterval: 600,
-            useSSL: true,
-        })
+        if (!this.isConnected) {
+            this.client.connect({
+                userName: 'hienhien612',
+                password: 'aio_VUBj19nGZ3YbN69h8YsK3BpA43n9',
+                onSuccess: async () => {
+                    console.log('connect susccessfully')
+                    this.isConnected = true
+                    handleSuccess()
+                },
+                onFailure: () => console.log('failed to connect'),
+                keepAliveInterval: 600,
+                useSSL: true,
+            })
+        }
     }
-}
 
-disconnect = () => {
-    if (this.isConnected) {
-        this.client.disconnect();
-        this.isConnected = false;
+    disconnect = () => {
+        if (this.isConnected) {
+            this.client.disconnect();
+            this.isConnected = false;
+        }
     }
-}
 
-onMessageArrived = (message) => {
-    const { topic, payloadString } = message
-    console.log('onMessageArrived: ' + payloadString);
-    this.valuelist = { ...this.valuelist, [topic]: payloadString, }
-    // console.log(this.valuelist)
-}
-
-onConnectionLost = (responseObject) => {
-    if (responseObject.errorCode !== 0) {
-        console.log('onConnectionLost:' + responseObject.errorMessage);
+    onMessageArrived = (message) => {
+        const { topic, payloadString } = message
+        console.log('onMessageArrived: ' + payloadString);
+        this.valuelist = { ...this.valuelist, [topic]: payloadString, }
+        // console.log(this.valuelist)
     }
-}
 
-subscribe = (topic) => {
-    // const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
-    this.client.subscribe(topic, {
-        onSuccess: () => console.log('subscribe successfully'),
-        onFailure: () => console.log('failed to subscribe'),
-    });
-    // await sleep(1000)
-};
+    onConnectionLost = (responseObject) => {
+        if (responseObject.errorCode !== 0) {
+            console.log('onConnectionLost:' + responseObject.errorMessage);
+        }
+    }
 
-unsubscribe = (topic) => {
-    this.client.unsubscribe(topic)
-}
+    subscribe = (topic) => {
+        // const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+        this.client.subscribe(topic, {
+            onSuccess: () => console.log('subscribe successfully'),
+            onFailure: () => console.log('failed to subscribe'),
+        });
+        // await sleep(1000)
+    };
 
-publishMessage = (topic, payload) => {
-    this.client.publish(`${topic}`, `${payload}`);
-};
+    unsubscribe = (topic) => {
+        this.client.unsubscribe(topic)
+    }
 
-setValue = (topic, value) => {
-    const message = new Paho.MQTT.Message((value).toString());
-    // setValue(32)
-    console.log('set value')
-    message.destinationName = topic;
-    this.client.send(message);
-};
+    publishMessage = (topic, payload) => {
+        this.client.publish(`${topic}`, `${payload}`);
+    };
+
+    setValue = (topic, value) => {
+        const message = new Paho.MQTT.Message((value).toString());
+        console.log('set value')
+        message.destinationName = topic;
+        this.client.send(message);
+    };
 }
 
 export default MQTTService.getInstance();
-

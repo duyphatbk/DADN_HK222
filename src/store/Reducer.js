@@ -24,8 +24,7 @@ const initState = {
     ],
     door: 4,
     theft: 0,
-    fire: 0,
-    
+    fire: 0, 
 }
 
 function Reducer(state, action) {
@@ -55,16 +54,16 @@ function Reducer(state, action) {
                 ...state,
                 door: action.payload
             }
-            case SET_FIRE:
-                return {
-                    ...state,
-                    fire: action.payload
-                }
-                case SET_THEFT:
-                    return {
-                        ...state,
-                        theft: action.payload,
-                    }
+        case SET_FIRE:
+            return {
+                ...state,
+                fire: action.payload
+            }
+        case SET_THEFT:
+            return {
+                ...state,
+                theft: action.payload,
+            }
         default:
             throw new Error('Invalid action!')
     }

@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, SafeAreaView, Button, TouchableOpacity, Image, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ToastAndroid, TouchableOpacity, Image, Modal, Pressable, StatusBar  } from 'react-native';
 import React, { createContext, useState, useContext } from 'react';
 import CheckBox from 'react-native-check-box'
 import { Icon } from '@rneui/themed';
 import MQTTService from '../core/services/MQTTService';
 import { MQTTContext } from '../store/authContext';
-
+import Toast from 'react-native-toast-message';
 
 const CB = (props) => {
     const [check, setcheck] = useState(false)
@@ -33,54 +33,16 @@ const LightFan = (props) => {
     }
     const [modalVisible, setModalVisible] = useState(false)
     const [state, dispatch] = useContext(MQTTContext)
-    /*const list = [
-        {
-            id: 1,
-            checked: false,
-        },
-        {
-            id: 2,
-            checked: false,
-        },
-        {
-            id: 3,
-            checked: false,
-        },
-        {
-            id: 4,
-            checked: false,
-        },
-        {
-            id: 5,
-            checked: false,
-        },
-        {
-            id: 6,
-            checked: false,
-        },
-        {
-            id: 7,
-            checked: false,
-        },
-        {
-            id: 8,
-            checked: false,
-        }
-    ]
-    */
     const handleChange = (item) => {
         for( x of item) {
             if (x.id == 1 ){
                 if(x.checked) {         
                     console.log(`Đèn số ${x.id} đang hoạt động`)
-                    MQTTService.setValue('hienhien612/feeds/dadn-led-1', 1)
-                    
+                    MQTTService.setValue('hienhien612/feeds/dadn-led-1', 1)    
                 }
-                
                 else {
                     MQTTService.setValue('hienhien612/feeds/dadn-led-1', 0)
                 }
-                                //console.log('ok')
             }
             else {
                 if(x.checked) {         
@@ -92,10 +54,17 @@ const LightFan = (props) => {
                     MQTTService.setValue('hienhien612/feeds/dadn-fan-1', 3)
                 }
             }
-        }
-        
+        } 
     }
-
+    
+        const showToast = () => {
+            Toast.show({
+              type: 'success',
+              text1: 'Hello',
+              text2: 'This is some something 👋'
+            })
+        }
+    
     return (
         <TouchableOpacity
             style={props.device == "fan" ? [styles.btnWrap, styles.fan] : [styles.btnWrap, styles.light]}
@@ -118,7 +87,8 @@ const LightFan = (props) => {
                         </View>
                         <Pressable onPress={() => {
                             (props.device == 'light') ? handleChange(state.lights) : handleChange(state.fans);
-                            setModalVisible(!modalVisible);     
+                            setModalVisible(!modalVisible);
+                            showToast();
                         }
                     } style={styles.btn}>
                             <Text style={styles.textStyle}>Áp dụng</Text>
@@ -241,5 +211,12 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: '#1F66CC',
         marginTop: 10,
-    }
+    },
+    toast : {
+        flex: 1,
+        justifyContent: 'center',
+        //paddingTop: StatusBar.currentHeight,
+        backgroundColor: '#6638f0',
+        //padding: 8,
+    },
 });

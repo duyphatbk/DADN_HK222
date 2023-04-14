@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, Modal, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button, Modal, Pressable, ScrollView, ToastAndroid } from 'react-native';
 import TempHum from '../components/TempHum'
 import BackTo from '../components/BackTo'
 import LightFan from '../components/LightFan'
@@ -9,8 +9,8 @@ import Paho from 'paho-mqtt'
 import uuid from 'react-native-uuid'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MQTTService from '../core/services/MQTTService'
-
 function Home() {
+
     return (
         <ScrollView
             contentContainerStyle={{
@@ -40,9 +40,6 @@ function Home() {
                     <AlertDevice device="fire" />
                     <AlertDevice device="thef" />
                 </View>
-                {/* <TouchableOpacity onPress={() => MQTTService.publishMessage('tracogt/feeds/mb-temp')}>
-                    <Text>HI HI</Text>
-                </TouchableOpacity> */}
             </View>
         </ScrollView>
     );

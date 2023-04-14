@@ -39,25 +39,21 @@ function MQTTProvider({ children }) {
         const humid = MQTTService.valuelist['hienhien612/feeds/dadn-humi-1']
         dispatch(actions.setHumid(humid))
         // console.log(payload)
-        
-        //MQTTService.publishMessage('thoiduyphat/feeds/dadn-fan')
-        const fan = MQTTService.valuelist['hienhien612/feeds/dadn-fan-1']
-        dispatch(actions.setFan(fan))
-
-        const light = MQTTService.valuelist['hienhien612/feeds/dadn-led-1']
-        dispatch(actions.setLight(light))
-
-        const door = MQTTService.valuelist['hienhien612/feeds/dadn-door']
-        dispatch(actions.setDoor(door))
-        
         const fire = MQTTService.valuelist['hienhien612/feeds/dadn-gas']
         dispatch(actions.setFire(fire))
         
         const human = MQTTService.valuelist['hienhien612/feeds/dadn-human']
         dispatch(actions.setTheft(human))
         
-      }
-    }, 5000)
+        const fan = MQTTService.valuelist['hienhien612/feeds/dadn-fan-1']
+        dispatch(actions.setFan(fan))
+
+        const light = MQTTService.valuelist['hienhien612/feeds/dadn-led-1']
+        dispatch(actions.setLight(light))        
+
+        const door = MQTTService.valuelist['hienhien612/feeds/dadn-door']
+        dispatch(actions.setDoor(door))  }
+      },3000)        
     
     // clean up session
     return () => {

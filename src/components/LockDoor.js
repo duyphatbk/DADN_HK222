@@ -12,10 +12,7 @@ const LockDoor = (props) => {
         styles.label.backgroundColor = bgcolor;
         
         state.door = state.door == 4 ? 5 : 4;
-        console.log(state.door)
         MQTTService.setValue('hienhien612/feeds/dadn-door', state.door);
-
-        //return console.log(state.door);
     }
     return (
         <TouchableOpacity style={[styles.btnWrap]} onPress={details}>

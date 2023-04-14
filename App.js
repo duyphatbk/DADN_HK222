@@ -27,7 +27,7 @@ const MyDrawer = () => {
     <Drawer.Navigator initialRouteName="Login" >
       {/* <Drawer.Screen name="Login" component={Login}/> */}
       <Drawer.Screen name="Login" component={Login} 
-          options={{headerShown: false}}
+          //options={{headerShown: false}}
       />
       <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
       <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
