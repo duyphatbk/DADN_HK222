@@ -1,6 +1,7 @@
 // sefl-defined constant just to make things more convenient
 // use in 'type' of action {}
 
+// device
 export const SET_TEMP = 'SET-TEMP'
 export const SET_HUMID = 'SET-HUMID'
 export const SET_LIGHT = 'SET-LIGHT'
@@ -11,3 +12,8 @@ export const SET_THEFT = 'SET-THEFT'
 
 export const ADD_LIGHT = 'ADD-LIGHT'
 export const ADD_FAN = 'ADD-FAN'
+
+// user
+export const SET_ID = 'SET_ID'
+export const SET_MAIL = 'SET_MAIL'
+export const SET_NAME = 'SET_NAME'

@@ -1,4 +1,4 @@
-import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert, Keyboard } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert, Keyboard, ScreenHeight, ScreenWidth } from 'react-native';
 import React, {useState} from 'react';
 import  Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -79,11 +79,13 @@ export default function Info_user() {
           }
         }, 1800)
     };
+
+    
     return (
         <ScrollView>
         <Loader visible={loading} />
         <View style={styles.container}>
-            <BackTo name="Tài khoản" />
+            <BackTo style={styles.btn} name="Tài khoản" />
             <View style={styles.infoTop}>
                 <View style = {{alignItems: 'center'}}>
                     <Image
@@ -249,7 +251,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingLeft: 12,
         marginTop: -12,
-        // alignItems: 'center',
+        height: 900,
+
     },
     infoTop: {
         marginTop: -10,

@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useState } from 'react'
 import { MQTTContext } from './authContext'
-import Reducer, { initState } from './Reducer'
-import * as actions from '../store/Action'
+import Reducer, { initState } from './DeviceReducer'
+import * as actions from '../store/DeviceAction'
 
 // MQTT service
 import MQTTService from '../core/services/MQTTService'
