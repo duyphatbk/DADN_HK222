@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import CheckBox from 'react-native-check-box'
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
@@ -7,6 +8,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Loader from '../components/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { AppContext } from '../store/authContext'
+import * as actions from '../store/UserAction'
+import { login } from '../utils/API'
 
 function Login() {
     const navigation = useNavigation()
@@ -19,7 +24,11 @@ function Login() {
         email: '',
         password: '',
     });
-    const validate = () => {
+
+    const [state, dispatch] = useContext(AppContext)
+    
+    const validate = async (e) => {
+        e.preventDefault()
         Keyboard.dismiss();
         let isValid = true;
 
@@ -42,6 +51,16 @@ function Login() {
             register();
             setErrors({ errors: '' })
         }
+
+        // call login api
+        const res = await login(inputs)
+        const user = res.user
+        if (res.status) {
+            console.log("Successfully logged in with email: ", user.email)
+            // await dispatch(actions.setMail(user.email))
+            // await dispatch(actions.setID(user._id))
+            // console.log(state)
+        } else console.log(res.msg)
     };
     const handleError = (errors, input) => {
         setErrors(prevState => ({ ...prevState, [input]: errors }));
@@ -140,7 +159,7 @@ function Login() {
                         </View>
                         <TouchableOpacity
                             style={styles.btn}
-                            onPress={validate}>
+                            onPress={(e) => validate(e)}>
                             <Text style={{
                                 fontWeight: 500,
                                 color: '#fff',

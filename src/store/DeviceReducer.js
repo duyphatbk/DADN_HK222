@@ -1,6 +1,6 @@
 import {
     SET_TEMP, SET_HUMID, SET_LIGHT, SET_FAN,
-    SET_DOOR, SER_THEFT, SET_FIRE, ADD_FAN, ADD_LIGHT, SET_THEFT
+    SET_DOOR, SET_FIRE, SET_THEFT
 } from "./Constant"
 import * as action from './DeviceAction'
 
