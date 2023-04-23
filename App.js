@@ -5,10 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 //import MQTTService from './src/core/services/MQTTService'
 
-import { Account, Account_darkTheme, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login } from './src/Screens/'
+import { Account, Account_darkTheme, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login} from './src/Screens/'
 
 import MQTTProvider from './src/store/MQTTProvider'
 import AppProvider from './src/store/AppProvider'
+import { AppContext } from './src/store/authContext';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -25,39 +26,42 @@ const Drawer = createDrawerNavigator();
 
 const MyDrawer = () => {
   return (
-    <Drawer.Navigator initialRouteName="Login" >
-      {/* <Drawer.Screen name="Login" component={Login}/> */}
-      <Drawer.Screen name="Login" component={Login}
-      //options={{headerShown: false}}
-      />
+    <Drawer.Navigator initialRouteName="Chọn nhà" >
       <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
       <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
       <Drawer.Screen name="Trang chủ" component={Home} />
       <Drawer.Screen name="Tài khoản" component={Account} />
       <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
       <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
-      <Drawer.Screen name="Đăng xuất" component={Login}
-        options={{ headerShown: false }}
-      />
+      {/* <Drawer.Screen name="Đăng xuất" component={Login}/> */}
     </Drawer.Navigator>
   )
 }
 
+const MyStack = () => {
+  const context = useContext(AppContext)
+  const state = context.state
+
+  return (
+    <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={Login} />
+
+      {
+        state.isLogin && (
+          <Stack.Screen name="UserIn" component={MyDrawer} />
+        )
+      }
+    </Stack.Navigator>
+  )
+}
+
 export default function App() {
+
   return (
     <NavigationContainer theme={MyTheme}>
       <AppProvider>
         <MQTTProvider>
-          <Stack.Navigator initialRouteName="x" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="x" component={MyDrawer} />
-            {/* <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
-              <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
-              <Drawer.Screen name="Trang chủ" component={Home} />
-              <Drawer.Screen name="Tài khoản" component={Account} />
-              <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
-              <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} /> */}
-          </Stack.Navigator>
+          <MyStack />
         </MQTTProvider>
       </AppProvider>
     </NavigationContainer>

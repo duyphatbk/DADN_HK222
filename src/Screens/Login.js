@@ -3,14 +3,12 @@ import CheckBox from 'react-native-check-box'
 import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Keyboard } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Loader from '../components/Loader';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { AppContext } from '../store/authContext'
-import * as actions from '../store/UserAction'
 import { login } from '../utils/API'
 
 function Login() {
@@ -25,8 +23,8 @@ function Login() {
         password: '',
     });
 
-    const [state, dispatch] = useContext(AppContext)
-    
+    const context = useContext(AppContext)
+
     const validate = async (e) => {
         e.preventDefault()
         Keyboard.dismiss();
@@ -57,25 +55,30 @@ function Login() {
         const user = res.user
         if (res.status) {
             console.log("Successfully logged in with email: ", user.email)
-            // await dispatch(actions.setMail(user.email))
-            // await dispatch(actions.setID(user._id))
-            // console.log(state)
+            await context.login(res.token, user)
+            navigation.navigate('UserIn')
+            // console.log(context.state.token)
+            //clear input values
+            setInputs({
+                email: '',
+                password: '',
+            })
         } else console.log(res.msg)
-    };
+    }
+
     const handleError = (errors, input) => {
         setErrors(prevState => ({ ...prevState, [input]: errors }));
-    };
+    }
+
     const handleOnchange = (text, input) => {
         setInputs(prevState => ({ ...prevState, [input]: text }));
-    };
+    }
 
     const register = () => {
         setLoading(true);
         setTimeout(() => {
             try {
                 setLoading(false);
-                AsyncStorage.setItem('userData', JSON.stringify(inputs));
-                navigation.navigate('Trang chủ');
             } catch (error) {
                 Alert.alert('Error', 'Something went wrong');
             }
@@ -103,8 +106,8 @@ function Login() {
                             <TextInput
                                 secureTextEntry={!hideEmail}
                                 style={styles.textinput}
+                                value={inputs.email}
                                 placeholder='Nhập email người dùng...'
-                                //value={mail}
                                 onChangeText={text => handleOnchange(text, 'email')}
                             />
                             <Icon
@@ -126,13 +129,12 @@ function Login() {
                             <Icon name='lock-outline' style={{ fontSize: 20, marginLeft: 15 }} />
                             <TextInput
                                 autoCorrect={false}
-                                //defaultValue={pass}
+                                value={inputs.password}
                                 style={styles.textinput}
                                 name='password'
                                 textContentType="newPassword"
                                 secureTextEntry={hidepassWord}
                                 placeholder='Nhập mật khẩu...'
-                                //value={pass}
                                 onChangeText={text => handleOnchange(text, 'password')}
                             />
                             <Icon
