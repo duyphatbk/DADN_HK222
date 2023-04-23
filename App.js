@@ -1,39 +1,75 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
-import Account from './src/Screens/Account';
-import Info_user from './src/Screens/Info_user';
-import HistoryDevice from './src/Screens/HistoryDevice';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Account_darkTheme from './src/Screens/Account_darkTheme';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView } from 'react-native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+//import MQTTService from './src/core/services/MQTTService'
+
+import { Account, Account_darkTheme, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login} from './src/Screens/'
+
+import MQTTProvider from './src/store/MQTTProvider'
+import AppProvider from './src/store/AppProvider'
+import { AppContext } from './src/store/authContext';
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'rgb(255, 45, 85)',
+    background: '#363636'
+  },
+};
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
-function MyStack() {
+
+const MyDrawer = () => {
   return (
-    //<HistoryDevice />
-    <Stack.Navigator>
-      <Stack.Screen name="Tài khoản" component={Account} />
-      <Stack.Screen name="Thông tin tài khoản" component={Info_user} />
-      <Stack.Screen name="Chế độ ban đêm" component={Account_darkTheme} />
-      <Stack.Screen name="Lịch sử thiết bị" component={HistoryDevice} />
+    <Drawer.Navigator initialRouteName="Chọn nhà" >
+      <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
+      <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
+      <Drawer.Screen name="Trang chủ" component={Home} />
+      <Drawer.Screen name="Tài khoản" component={Account} />
+      <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
+      <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
+      {/* <Drawer.Screen name="Đăng xuất" component={Login}/> */}
+    </Drawer.Navigator>
+  )
+}
+
+const MyStack = () => {
+  const context = useContext(AppContext)
+  const state = context.state
+
+  return (
+    <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={Login} />
+
+      {
+        state.isLogin && (
+          <Stack.Screen name="UserIn" component={MyDrawer} />
+        )
+      }
     </Stack.Navigator>
-    
-  );
+  )
 }
 
 export default function App() {
+
   return (
-    <NavigationContainer>
-      <MyStack />
+    <NavigationContainer theme={MyTheme}>
+      <AppProvider>
+        <MQTTProvider>
+          <MyStack />
+        </MQTTProvider>
+      </AppProvider>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+styles = StyleSheet.create({
+  base: {
+    backgroundColor: '#363636',
+  }
+})

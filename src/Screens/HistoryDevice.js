@@ -1,79 +1,77 @@
-import {SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert} from 'react-native';
-import React, {useState} from 'react';
+import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, Button, Alert } from 'react-native';
+import React, { useState } from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SelectList } from 'react-native-dropdown-select-list'
 import { TouchableOpacity } from 'react-native';
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import BackTo from '../components/BackTo';
 
 const data = [
-    {key:'1', value:'Đèn 1' /*disabled:true*/},
-    {key:'2', value:'Đèn 2'},
-    {key:'3', value:'Đèn 3'},
-    {key:'4', value:'Đèn 4'},
+    { key: '1', value: 'Đèn 1' /*disabled:true*/ },
+    { key: '2', value: 'Đèn 2' },
+    { key: '3', value: 'Đèn 3' },
+    { key: '4', value: 'Đèn 4' },
 ]
 export default function HistoryDevice() {
     const icon_light = require('../../images/Light_Icon.jpg');
     const [selected, setSelected] = React.useState("");
     return (
 
-    <View style = {styles.container}>
-        <TouchableOpacity>
-            <View style = {styles.nav}>
-                    <View style = {styles.icon_back}>
-                        <FontAwesome5
-                            name='angle-double-left'
-                                    size={40}
-                                    color='#363636'
-                                />                
-                    </View>            
-                <Text style = {styles.nav_text}>Lịch sử {selected}</Text>
-            </View>
-        </TouchableOpacity>
-        
-        <View style = {styles.button}>
-           <View style = {{backgroundColor: '#1F66CC', borderRadius: 10, width: 180}}>
-                <SelectList             
-                    setSelected={(val) => {
+        <View style={styles.container}>
+            <BackTo name='Tài khoản' />
+            <View style={styles.button}>
+                <View >
+                    <SelectList
+                        setSelected={(val) => {
                             return setSelected(val);
                         }
-                    }                     
-                    data={data} 
-                    save="value"
-                    placeholder='Lựa chọn thiết bị'
-                    dropdownStyles={{backgroundColor: 'gray'}}
-                    dropdownItemStyles={{marginHorizontal: 20}}
-                    dropdownTextStyles={{color:'white', fontSize:18}}
-                    maxHeight= {1000}
-                />
+                        }
+                        data={data}
+                        save="value"
+                        placeholder='Lựa chọn thiết bị'
+                        dropdownStyles={{ backgroundColor: '#F3F3F3' }}
+                        dropdownItemStyles={{ alignItems: 'center' }}
+                        dropdownTextStyles={{ color: '#000000', fontSize: 16, fontWeight: 500 }}
+                        // maxHeight= {1000}
+                        inputStyles={{ color: '#ffffff', fontWeight: '500', fontSize: 16 }}
+                        boxStyles={styles.select}
+                        disabledTextStyles={{ color: '#ffffff' }}
+                    />
+                </View>
             </View>
-        </View>
-        
-        <View style = {styles.formInfo}>
-                <View style = {styles.dayMon}>
-                    <Text style = {{fontWeight: 'bold', fontSize: 18}}>Lịch sử hoạt động</Text>
+
+            <View style={styles.formInfo}>
+                <View style={styles.datepicker}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Lịch sử hoạt động</Text>
                     <View style={styles.Calender}>
-                        <Text style = {{fontSize: 18}}>vamos</Text>
+                        <Text style={{ fontSize: 18 }}></Text>
                     </View>
                 </View>
-                <View style = {styles.HistoryInfo}>
-                    <Image style = {styles.iconLight} source={icon_light} />
-                    <Text style = {{fontSize: 18}}>{selected} bật lúc 00:01</Text>
+                <View style={styles.HistoryInfo}>
+                    <Image style={styles.iconLight} source={icon_light} />
+                    <View>
+                    {selected && <Text style={{ fontSize: 16 }}>{selected} đã bật lúc 00:01</Text>}
+                    </View>
                 </View>
-            </View>    
-        
-        <Text style ={{paddingTop: 10, color: '#827A7A', paddingLeft: 100, marginTop: 45}}>CopyRight @ 2023 by BadRabbit</Text>
-    </View>
-  )
+            </View>
+
+            <Text style={{ paddingTop: 10, color: '#827A7A', paddingLeft: 100, marginTop: 45 }}>CopyRight @ 2023 by BadRabbit</Text>
+        </View>
+    )
 };
 
 const styles = StyleSheet.create({
-    container : {
+    container: {
         flex: 1,
-        backgroundColor: '#EEEEEE'
+        backgroundColor: '#EEEEEE',
+        paddingLeft: 20,
+        paddingTop: 30,
+        justifyContent: 'center',
+        // alignItems: 'center'
     },
 
-    nav : {
+    nav: {
         marginTop: 75,
         marginLeft: 25,
         backgroundColor: 'white',
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
-    icon_back : {
+    icon_back: {
         flex: 1,
         width: 10,
         backgroundColor: 'yellow',
@@ -94,48 +92,47 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    nav_text : {
+    nav_text: {
         fontSize: 20,
         flex: 3,
         paddingLeft: 30,
-       
+
     },
 
     button: {
         height: 100,
         width: 200,
         marginLeft: 190,
-        marginTop: 20,
+        //marginTop: 20,
         borderRadius: 9,
         Color: '#1F66CC',
         zIndex: 1
     },
 
-    formInfo : {
+    formInfo: {
         backgroundColor: '#FFFFFF',
-        width: '85%',
-        marginLeft: 30,
-        marginTop: -40,
         height: 400,
         borderRadius: 20,
+        width: 370,
+        marginTop: -20,
     },
 
-    dayMon: {
+    datepicker: {
         backgroundColor: '#EEF3FA',
         height: 50,
         paddingLeft: 20,
         paddingTop: 15,
-        borderTopLeftRadius : 20,
-        borderTopRightRadius : 20,   
-        flexDirection: 'row'      
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        flexDirection: 'row'
     },
-    iconLight : {
+    iconLight: {
         width: 40,
         height: 40,
         marginRight: 20,
 
     },
-    HistoryInfo : {
+    HistoryInfo: {
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 20,
@@ -145,4 +142,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginLeft: 20
     },
+    select: {
+        borderRadius: 50,
+        backgroundColor: '#1F66CC',
+        color: '#fff'
+    }
 })
