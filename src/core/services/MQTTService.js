@@ -30,8 +30,8 @@ class MQTTService {
             443,
             clientId
         );
-        this.username = 'tracogt'
-        this.password = 'aio_WeJh201drhXAQi2v2RYrYFdGEYIU'
+        this.username = 'hienhien612'
+        this.password = 'aio_xmUQ32ASYkQTt1MbA1NRsOkNKbBB'
         this.client.onConnectionLost = this.onConnectionLost
         this.client.onMessageArrived = this.onMessageArrived
         this.isConnected = false
@@ -41,8 +41,8 @@ class MQTTService {
     connect = (handleSuccess) => {
         if (!this.isConnected) {
             this.client.connect({
-                userName: 'tracogt',
-                password: 'aio_WeJh201drhXAQi2v2RYrYFdGEYIU',
+                userName: 'hienhien612',
+                password: 'aio_xmUQ32ASYkQTt1MbA1NRsOkNKbBB',
                 onSuccess: async () => {
                     console.log('connect susccessfully')
                     this.isConnected = true
@@ -89,7 +89,7 @@ class MQTTService {
     }
 
     publishMessage = (topic) => {
-        this.client.publish(`${topic}/get`, 'tracogt');
+        this.client.publish(`${topic}/get`, 'hienhien612');
     };
 
     setValue = (topic, value) => {

@@ -1,4 +1,4 @@
-const host = 'http://172.17.18.61:5000'
+const host = 'http://192.168.1.3:5000'
 import axios from 'axios';
 
 export const login = async (data) => {
