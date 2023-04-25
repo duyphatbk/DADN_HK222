@@ -5,11 +5,9 @@ import { Icon } from '@rneui/themed';
 
 const BackTo = (props) => {
     const navigation = useNavigation();
-    const backTo = () => {
-        console.log('clicked')
-    }
     return (
-        <TouchableOpacity style={styles.btnWrap} onPress={() => navigation.navigate(props.name)}>
+        <TouchableOpacity style={styles.btnWrap} onPress={
+            () => navigation.pop()}>
             <View style={styles.icon}>
                 <Icon
                     name='doubleleft'
@@ -18,7 +16,7 @@ const BackTo = (props) => {
                 />
             </View>
             <Text style={styles.title}>{props.name}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity >
     )
 }
 

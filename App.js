@@ -1,15 +1,16 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView } from 'react-native';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import 'react-native-gesture-handler'
+import React, { createContext, useState, useEffect, useContext } from 'react'
+import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView } from 'react-native'
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 //import MQTTService from './src/core/services/MQTTService'
 
-import { Account, Account_darkTheme, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login} from './src/Screens/'
+import { Account, ChooseHome, ChooseRoom, HistoryDevice, Home, Info_user, Login, Notification } from './src/Screens/'
 
 import MQTTProvider from './src/store/MQTTProvider'
 import AppProvider from './src/store/AppProvider'
-import { AppContext } from './src/store/authContext';
+import { AppContext } from './src/store/authContext'
 
 const MyTheme = {
   ...DefaultTheme,
@@ -28,12 +29,12 @@ const MyDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName="Chọn nhà" >
       <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
-      <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
+      <Drawer.Screen name="Chọn phòng" component={ChooseRoom}/>
       <Drawer.Screen name="Trang chủ" component={Home} />
       <Drawer.Screen name="Tài khoản" component={Account} />
       <Drawer.Screen name="Thông tin tài khoản" component={Info_user} />
       <Drawer.Screen name="Lịch sử hoạt động" component={HistoryDevice} />
-      {/* <Drawer.Screen name="Đăng xuất" component={Login}/> */}
+      <Drawer.Screen name="Thông báo" component={Notification} />
     </Drawer.Navigator>
   )
 }
@@ -44,12 +45,9 @@ const MyStack = () => {
 
   return (
     <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={Login} />
-
       {
-        state.isLogin && (
-          <Stack.Screen name="UserIn" component={MyDrawer} />
-        )
+        (state.isLogin) ? <Stack.Screen name="UserIn" component={MyDrawer} /> :
+          <Stack.Screen name="Login" component={Login} />
       }
     </Stack.Navigator>
   )

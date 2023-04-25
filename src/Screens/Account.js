@@ -1,17 +1,14 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState, createContext, useContext } from 'react';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useTheme } from '@react-navigation/native';
-import { AppContext } from '../store/authContext';
+import React, { useState, createContext, useContext } from 'react'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { AppContext } from '../store/authContext'
+import { useNavigation } from '@react-navigation/native'
 
-export default function Account({ navigation }) {
-    const contex = useContext(AppContext)
+export default function Account() {
+    const context = useContext(AppContext)
+    const navigation = useNavigation()
+    const account_img = require('../../images/Avatar.png')
 
-    const { colors } = useTheme();
-    const account_img = require('../../images/Avatar.png');
-    let lightTheme = () => {
-        styles.container.backgroundColor = 'white';
-    }
     return (
         <View style={styles.container}>
             <View style={styles.image}>
@@ -22,7 +19,7 @@ export default function Account({ navigation }) {
             </View>
             <Text style={styles.welcome_text}>Hello, BadRabbit</Text>
             <View style={styles.body}>
-                <TouchableOpacity onPress={() => navigation.navigate('Thông tin tài khoản')}>
+                <TouchableOpacity onPress={() => navigation.push('UserIn', {screen: 'Thông tin tài khoản'})}>
                     <View style={styles.info}>
                         <Image source={account_img} style={styles.icon_info} />
                         <View style={styles.info_backg}>
@@ -30,7 +27,7 @@ export default function Account({ navigation }) {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Chế độ ban đêm')}>
+                <TouchableOpacity onPress={() => {console.log('Have not been updated yet')}}>
                     <View style={styles.info}>
                         <View style={{ backgroundColor: '#FCE19C', justifyContent: 'center', alignItems: 'center', borderRadius: 30, width: 50 }}>
                             <FontAwesome5
@@ -73,8 +70,8 @@ export default function Account({ navigation }) {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={async () => {
-                    await contex.logout()
-                    navigation.navigate('Login')
+                    await context.logout()
+                    navigation.popToTop()
                 }}>
                     <View style={styles.info}>
                         <View style={{ backgroundColor: '#F57C7C', justifyContent: 'center', alignItems: 'center', borderRadius: 30, width: 50 }}>

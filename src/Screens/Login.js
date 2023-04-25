@@ -57,13 +57,17 @@ function Login() {
             console.log("Successfully logged in with email: ", user.email)
             await context.login(res.token, user)
             navigation.navigate('UserIn')
-            // console.log(context.state.token)
+            console.log(context.state.token)
             //clear input values
             setInputs({
                 email: '',
                 password: '',
             })
-        } else console.log(res.msg)
+        } else {
+            // handleError(res.msg, )
+            // isValid = false;
+            console.log(res.msg)
+        }
     }
 
     const handleError = (errors, input) => {
