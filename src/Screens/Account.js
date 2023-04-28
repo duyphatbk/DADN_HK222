@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useTheme } from '@react-navigation/native';
 import { AppContext } from '../store/authContext';
-
+import { deviceTypeInfo } from '../utils/API';
 export default function Account({ navigation }) {
     const contex = useContext(AppContext)
 

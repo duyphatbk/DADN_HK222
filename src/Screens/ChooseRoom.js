@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, SafeAreaView, Button, Image, TextInput, Touchab
 
 import WhichRoom from '../components/WhichRoom';
 import BackTo from '../components/BackTo'
-
+import { getValue } from '../utils/API';
 
 function ChooseRoom() {
     
@@ -30,8 +30,6 @@ function ChooseRoom() {
         name: 'Phòng ăn'
     },
     ]
-
-
 
     const [modal, setModel] = useState(false);
 

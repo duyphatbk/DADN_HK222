@@ -26,7 +26,7 @@ const Drawer = createDrawerNavigator();
 
 const MyDrawer = () => {
   return (
-    <Drawer.Navigator initialRouteName="Chọn nhà" >
+    <Drawer.Navigator initialRouteName="Trang chủ" >
       <Drawer.Screen name="Chọn nhà" component={ChooseHome} />
       <Drawer.Screen name="Chọn phòng" component={ChooseRoom} />
       <Drawer.Screen name="Trang chủ" component={Home} />
