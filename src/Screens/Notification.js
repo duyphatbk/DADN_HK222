@@ -1,12 +1,8 @@
-import CheckBox from 'react-native-check-box'
-import { ScreenHeight, ScreenWidth } from '@rneui/base';
 import React, { createContext, useState, useContext } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button, Image, ScrollView } from 'react-native';
-import WhichRoom from '../components/WhichRoom';
-import BackTo from '../components/BackTo'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 export default function Notification() {
-    const iconTool = require('../../src/assets/tool.png');
+    const iconTool = require('../../src/assets/fire_alert.png');
     const logo = require('../../src/assets/logo.png');
     const [bgColor, setBgColor] = useState('#EDF5EA');
     var _styles = {

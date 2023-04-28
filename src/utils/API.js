@@ -18,29 +18,12 @@ export const login = async (data) => {
     }
 }
 
-export const userInfo = async (token) => {
-    try {
-        // create axios get request
-        const res = await axios({
-            method: 'get',
-            url: `${host}/auth/userInfo`,
-            data: data,
-            headers: { authorization: token },
-        })
-        return res.data
-    } catch (err) {
-        return {
-            status: err,
-        }
-    }
-}
-
 export const modifyInfo = async (token, data) => {
     try {
         // create axios patch request
         const res = await axios({
             method: 'patch',
-            url: `${host}auth/modifyInfo`,
+            url: `${host}/auth/modifyInfo`,
             data: data,
             headers: { authorization: token },
         })

@@ -5,28 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
 
 const WhichHome = (props) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const navigation = useNavigation();
 
-    const details = () => {
-        console.log('clicked details')
-    }
-
-    const chooseHome = () => {
-        // do sth greater
-        console.log('choose home') 
-        navigation.navigate('Chọn nhà')
-    }
-
     return (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Chọn phòng')}> 
-                <View style={styles.img}>
-                    < Image source={require('../assets/home.png')} />
-                </View>
-                <View style={styles.text}>
-                    <Text style={{fontSize: 18, fontWeight: 500}}>{props.name}</Text>
-                </View>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.push('UserIn', {screen: 'Chọn phòng'})}>
+            <View style={styles.img}>
+                < Image source={require('../assets/home.png')} />
+            </View>
+            <View style={styles.text}>
+                <Text style={{ fontSize: 18, fontWeight: 500 }}>{props.name}</Text>
+            </View>
         </TouchableOpacity >
     )
 }
@@ -55,7 +43,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        
+
         marginTop: 15,
     }
 });

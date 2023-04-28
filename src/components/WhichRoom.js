@@ -14,7 +14,7 @@ const WhichRoom = (props) => {
         console.log('clicked details')
     }
     return (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Trang chủ')}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.push('UserIn', {screen: 'Trang chủ'})}>
             <View style={styles.img}>
                 <Icon
                     name='doubleright'
